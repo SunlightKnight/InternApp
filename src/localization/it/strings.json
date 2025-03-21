@@ -1,0 +1,11 @@
+{
+  "general": {
+    "ok": "Ok",
+    "confirm": "Conferma",
+    "cancel": "Cancella",
+    "error": "Errore"
+  },
+  "landing_screen": {
+    "landing_title": "Landing"
+  }
+}
