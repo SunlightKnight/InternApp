@@ -1,4 +1,4 @@
-import { createContext, useCallback, useState } from "react"
+import { createContext, useState } from "react"
 import AppInterface from "./AppInterface"
 import Loader from "../../components/Loader"
 
