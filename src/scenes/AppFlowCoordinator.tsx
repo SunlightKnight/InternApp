@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 import AppProvider from '../utils/AppProvider/AppProvider';
-import styles, { HEADER_HEIGHT, slideAnimation } from '../styles/styles';
+import { HEADER_HEIGHT, slideAnimation } from '../styles/styles';
 import { createStackNavigator } from '@react-navigation/stack';
 import { DefaultTheme, NavigationContainer, NavigationState } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
