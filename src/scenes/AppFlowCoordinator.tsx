@@ -15,6 +15,7 @@ import colors from '../styles/colors';
 import padding from '../styles/padding';
 import { icon_back } from '../assets';
 import Landing from './Landing/Landing';
+import GenericListTest from './Test/GenericListTest'
 
 const Stack = createStackNavigator()
 const Theme = {
@@ -83,6 +84,10 @@ export default function AppFlowCoordinator() {
       component: Landing,
       parentProps: { },
     },
+    GenericListTest: {
+      component: GenericListTest,
+      parentProps: { },
+    }
   };
 
   return (

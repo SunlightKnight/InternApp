@@ -7,5 +7,8 @@
   },
   "landing_screen": {
     "landing_title": "Landing"
+  },
+  "listTest_screen": {
+    "list_title": "Saved data list"
   }
 }

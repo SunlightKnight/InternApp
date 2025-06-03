@@ -4,6 +4,7 @@ import { AppContext } from '../../utils/AppProvider/AppProvider'
 import { Text, ScrollView } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 
 interface LandingProps {
   navigation: any
@@ -11,11 +12,13 @@ interface LandingProps {
 
 function Landing(props: LandingProps) {
   const appContext = useContext(AppContext)
+  const navigation = useNavigation()
   const { t } = useTranslation()
 
   const testLoader = () => {
     appContext?.app.handleLoader(true)
     setTimeout(() => {
+      navigation.navigate('GenericListTest' as never)
       appContext?.app.handleLoader(false)
     }, 5000)
   }
