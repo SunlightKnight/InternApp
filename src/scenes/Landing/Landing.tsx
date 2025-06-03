@@ -12,15 +12,15 @@ interface LandingProps {
 
 function Landing(props: LandingProps) {
   const appContext = useContext(AppContext)
-  const navigation = useNavigation()
+  //const navigation = useNavigation()
   const { t } = useTranslation()
 
   const testLoader = () => {
     appContext?.app.handleLoader(true)
     setTimeout(() => {
-      navigation.navigate('GenericListTest' as never)
+      props.navigation.navigate('GenericListTest')
       appContext?.app.handleLoader(false)
-    }, 5000)
+    }, 500)
   }
 
   return (

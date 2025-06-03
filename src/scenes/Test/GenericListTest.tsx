@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { BackendServiceContext } from '../../services/BackedServiceProvider';
 import { AppContext } from '../../utils/AppProvider/AppProvider'
-import { Text, ScrollView, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Modal } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import { useTranslation } from 'react-i18next';
 import ListTest, { dataEntry } from '../../components/ListTest';
@@ -9,6 +9,8 @@ import ListTest, { dataEntry } from '../../components/ListTest';
 import colors from '../../styles/colors.ts';
 import padding from '../../styles/padding';
 import fontSize from '../../styles/fontSize';
+import generalStyles from '../../styles/styles.ts'
+import { ScrollView } from 'react-native-gesture-handler';
 
 interface ListProps {
   navigation: any
@@ -34,14 +36,24 @@ function GenericListTest(props: ListProps) {
   ]
 
   return (
-    <ScrollView contentContainerStyle={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-      <Text style={styles.title}/>
-      <ListTest data={defaultData}/>
-    </ScrollView>
+    <View style={styles.defaultContainer}>
+      <Text style={styles.title}>{t("listTest_screen.list_title")}</Text>
+      <View style={styles.listLimits}>
+        <ListTest data={defaultData}/>
+      </View>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
+  defaultContainer: {
+    flex: 1, 
+    justifyContent: "center", 
+    alignItems: "center"
+  },
+  listLimits: {
+    height: "10%",
+  },
   title: {
     color: colors.primary,
     fontSize: fontSize.big

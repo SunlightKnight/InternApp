@@ -24,20 +24,25 @@ export type dataEntry = {
 
 const styles = StyleSheet.create({
   listContainer: {
+    backgroundColor: colors.grey,
     width: "80%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: padding.full,
-    padding: padding.full,
+    /*justifyContent: "center",
+    alignItems: "center",*/
     borderRadius: 2,
     borderWidth: 2,
     borderColor: colors.grey,
   },
   listItem: {
-    color: colors.white,
-    width: 200,
-    height: 100,
-    fontSize: fontSize.normal,
-    fontWeight: "600"
+    backgroundColor: colors.white,
+    width: "50%",
+    height: fontSize.normal * 2,
+    paddingVertical: padding.quarter,
+    paddingHorizontal: padding.sixth,
+    fontSize: fontSize.small,
+    fontWeight: "600",
+
+    borderRadius: 2,
+    borderWidth: 2,
+    borderColor: colors.grey,
   }
 });
