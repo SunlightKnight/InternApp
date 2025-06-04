@@ -1,1 +1,6 @@
 export const icon_back = require("./icon_back.png")
+export const anonUser = require("./userAnon.png")
+export const arrowDropDown = require("./arrowDropDown.png")
+export const arrowDropUp = require("./arrowDropUp.png")
+export const email = require("./email.png")
+export const phone = require("./phone.png")

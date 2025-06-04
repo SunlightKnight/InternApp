@@ -16,6 +16,7 @@ import padding from '../styles/padding';
 import { icon_back } from '../assets';
 import Landing from './Landing/Landing';
 import GenericListTest from './Test/GenericListTest'
+import ProfileWindow from './Test/ProfileWindow'
 
 const Stack = createStackNavigator()
 const Theme = {
@@ -87,6 +88,10 @@ export default function AppFlowCoordinator() {
     GenericListTest: {
       component: GenericListTest,
       parentProps: { },
+    },
+    ProfileWindow: {
+      component: ProfileWindow,
+      parentProps: { }
     }
   };
 

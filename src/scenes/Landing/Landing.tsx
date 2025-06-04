@@ -15,10 +15,10 @@ function Landing(props: LandingProps) {
   //const navigation = useNavigation()
   const { t } = useTranslation()
 
-  const testLoader = () => {
+  const testLoader = (button : string) => {
     appContext?.app.handleLoader(true)
     setTimeout(() => {
-      props.navigation.navigate('GenericListTest')
+      button == "data" ? props.navigation.navigate('GenericListTest') : props.navigation.navigate('ProfileWindow') 
       appContext?.app.handleLoader(false)
     }, 500)
   }
@@ -26,7 +26,8 @@ function Landing(props: LandingProps) {
   return (
     <ScrollView contentContainerStyle={{flex: 1, justifyContent: "center", alignItems: "center"}}>
       <Text>{t("landing_screen.landing_title")}</Text>
-      <CustomButton onPress={() => testLoader()} text={"Start loader"} />
+      <CustomButton onPress={() => testLoader("data")} text={t("landing_screen.landing_data")} />
+      <CustomButton onPress={() => testLoader("profile")} text={t("landing_screen.landing_profile")} />
     </ScrollView>
   )
 }

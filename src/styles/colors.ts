@@ -6,7 +6,6 @@ export default {
   grey: "#F7F7F7",
   red: "#C41F1F",
 
-  primary: "#B88888"
-  // primary...
-  // secondary...
+  primary: "#71AEF0",
+  secondary: "#7085F0"
 }

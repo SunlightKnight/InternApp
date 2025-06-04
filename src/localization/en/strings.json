@@ -6,9 +6,15 @@
     "error": "Error"
   },
   "landing_screen": {
-    "landing_title": "Landing"
+    "landing_title": "Landing",
+    "landing_data": "[TEST] Open saved data",
+    "landing_profile": "Open profile"
   },
   "listTest_screen": {
     "list_title": "Saved data list"
+  },
+  "profile_screen": {
+    "profile_show_more": "Show more",
+    "profile_show_less": "Show less"
   }
 }
