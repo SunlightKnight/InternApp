@@ -23,20 +23,27 @@ function ProfileWindow(props: ProfileProps) {
 
   const profiles : ProfileEntry[] = [
     {
-      id: 0,
       name: 'Francesco De Bernardi',
       email: 'francescodeb07@gmail.com',
       imageURL: 'https://i.pinimg.com/736x/fd/5a/c8/fd5ac829988c1faaacf9adfd30cd0f18.jpg',
       title: 'Tirocinante',
-      quote: 'Carpe Diem',
+      quote: '[...] Carpe diem; quam minimum credula postero.',
+      quoteAuthor: 'Orazio',
+      biography: 'Lorem ipsum dolor sit ametLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
       cellNumber: 3913721861,
     },
     {
-      id : 1,
+      name: 'Yuri Guglielmana',
+      email: 'yuri.guglielmana@gmail.com',
+      imageURL: 'https://st.depositphotos.com/1740193/1228/i/450/depositphotos_12283100-stock-photo-caterpillar-excavator.jpg',
+      title: 'Esterno',
+      biography: 'Lorem ipsum dolor sit ametLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      cellNumber: 1230493520,
+    },
+    {
       name: 'Mario Rossi',
       email:'mario.rossi@gmail.com',
       title: 'Placeholder',
-      quote: 'Placeholder',
       cellNumber: 1234567890,
     }
   ]
@@ -45,7 +52,7 @@ function ProfileWindow(props: ProfileProps) {
     var profileWidgets = []
     for(let i = 0; i < profiles.length; i++) {
       var item = profiles[i];
-      profileWidgets[i] = <ProfileWidget data={item}/>
+      profileWidgets[i] = <ProfileWidget key={i} data={item}/>
     }
     return profileWidgets
   }
