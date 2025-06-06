@@ -20,10 +20,18 @@
   },
   "login_screen": {
     "login": "Accedi",
+    "biometric_login": "Accedi con impronta digitale",
+    "biometric_setup": "Configura",
+    "biometric_setup_title": "Vuoi attivare il 2FA biometrico?",
+    "biometric_setup_cancel": "Annulla",
+    "signin": "Registrati",
+    "signin_prompt": "Non sei ancora registrato? Registrati qui!",
+    "login_prompt": "Già un utente? Fai l'accesso qui!",
     "login_title": "Accedi ad InternApp",
+    "signin_title": "Registrati ad InternApp",
     "login_insert_username": "Inserire nome utente",
     "login_insert_password": "Inserire password",
-    "login_incorrectUsername": "Nome utente / password non validi",
-    "login_incorrectPassword": "Nome utente / password non validi"
+    "login_incorrect_username": "Nome utente / password non validi",
+    "login_incorrect_password": "Nome utente / password non validi"
   }
 }

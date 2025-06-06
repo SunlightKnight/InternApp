@@ -76,6 +76,8 @@ function ProfileWindow(props: ProfileProps) {
 
 const styles = StyleSheet.create({
   defaultContainer: {
+    backgroundColor: colors.primaryBackground,
+
     flexGrow: 1, 
     alignItems: "center",
     justifyContent: "flex-start",

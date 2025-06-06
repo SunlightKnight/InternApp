@@ -7,6 +7,6 @@ export default {
   red: "#C41F1F",
 
   primary: "#71AEF0",
-  primaryBackground: '#E1F9FF',
+  primaryBackground: '#e0eeff',
   secondary: "#608EBE"
 }

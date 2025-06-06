@@ -1,11 +1,13 @@
 import { useContext } from 'react';
 import { BackendServiceContext } from '../../services/BackedServiceProvider';
 import { AppContext } from '../../utils/AppProvider/AppProvider'
-import { Text, ScrollView } from 'react-native';
+import { Text, ScrollView, StyleSheet, View } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import padding from '../../styles/padding';
+import colors from '../../styles/colors';
+import DropShadow from 'react-native-drop-shadow';
 
 interface LandingProps {
   navigation: any
@@ -16,21 +18,60 @@ function Landing(props: LandingProps) {
   //const navigation = useNavigation()
   const { t } = useTranslation()
 
-  const testLoader = (button : string) => {
+  const testLoader = (button: string) => {
     appContext?.app.handleLoader(true)
     setTimeout(() => {
-      button == "data" ? props.navigation.navigate('GenericListTest') : props.navigation.navigate('ProfileWindow') 
+      button == "data" ? props.navigation.navigate('GenericListTest') : props.navigation.navigate('ProfileWindow')
       appContext?.app.handleLoader(false)
     }, 500)
   }
 
   return (
-    <ScrollView contentContainerStyle={{flex: 1, justifyContent: "center", alignItems: "center", padding: padding.half, gap: 5}}>
-      <Text>{t("landing_screen.landing_title")}</Text>
-      <CustomButton onPress={() => testLoader("data")} text={t("landing_screen.landing_data")} />
-      <CustomButton onPress={() => testLoader("profile")} text={t("landing_screen.landing_profile")} />
+    <ScrollView contentContainerStyle={styles.mainContainer}>
+      <DropShadow style={styles.landingContainerShadow}>
+        <View style={styles.landingContainer}>
+          <Text>{t("landing_screen.landing_title")}</Text>
+          <CustomButton onPress={() => testLoader("data")} text={t("landing_screen.landing_data")} />
+          <CustomButton onPress={() => testLoader("profile")} text={t("landing_screen.landing_profile")} />
+        </View>
+      </DropShadow>
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    flexGrow: 1,
+    justifyContent: "center",
+    alignItems: "center",
+
+    backgroundColor: colors.primaryBackground
+  },
+  landingContainerShadow: {
+    flex: 0,
+    flexGrow: 0,
+
+    width: "80%",
+
+    margin: 10,
+
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.15,
+    shadowRadius: 5,
+  },
+  landingContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+
+    padding: padding.half,
+
+    gap: 10,
+
+    backgroundColor: colors.white,
+    borderRadius: 5,
+  },
+})
 
 export default Landing

@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 interface LabeledFieldProps extends TextInputProps {
   warningText?: string,
+  newPassword?: boolean
 }
 
 export default function LabeledField(props: LabeledFieldProps) {
@@ -23,7 +24,7 @@ export default function LabeledField(props: LabeledFieldProps) {
     <View style={[styles.container, props.style]}>
       {props.warningText == undefined ? (
         <View>
-          <TextInput style={[styles.input]} {...props} placeholderTextColor={colors.blackOpacity25} secureTextEntry={passwordShow}/>
+          <TextInput style={[styles.input]} {...props} placeholderTextColor={colors.blackOpacity25} secureTextEntry={passwordShow} importantForAutofill={'yes'} textContentType={props.secureTextEntry ? 'password' : 'username'} autoComplete={props.secureTextEntry ? props.newPassword ? 'new-password' : 'current-password' : 'username'}/>
           {props.secureTextEntry != undefined ? (
             <TouchableOpacity onPress={showHide}>
               <Image style={styles.showButton} source={passwordShow ? images.eyeOn : images.eyeOff} />
@@ -33,7 +34,7 @@ export default function LabeledField(props: LabeledFieldProps) {
       ) : (
         <View>
           <Text style={styles.label}>{props.warningText}</Text>
-          <TextInput style={[styles.input, {borderColor: colors.red}]} {...props} placeholderTextColor={colors.blackOpacity25} secureTextEntry={passwordShow}/>
+          <TextInput style={[styles.input, {borderColor: colors.red}]} {...props} placeholderTextColor={colors.blackOpacity25} secureTextEntry={passwordShow} importantForAutofill={'yes'} autoComplete={props.secureTextEntry ? props.newPassword ? 'new-password' : 'current-password' : 'username'}/>
           {props.secureTextEntry != undefined ? (
             <TouchableOpacity onPress={showHide}>
               <Image style={styles.showButton} source={passwordShow ? images.eyeOn : images.eyeOff} />

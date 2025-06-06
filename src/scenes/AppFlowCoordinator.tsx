@@ -43,7 +43,7 @@ export default function AppFlowCoordinator() {
 
   const screenOptions = {
     title: '',
-    backgroundColor: colors.white,
+    backgroundColor: colors.primaryBackground,
     headerBackTitleVisible: false,
     cardStyleInterpolator: slideAnimation,
     gestureEnabled: false,

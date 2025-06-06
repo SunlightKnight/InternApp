@@ -19,11 +19,19 @@
     "profile_biography": "Biography"
   },
   "login_screen": {
-    "login": "Login",
+    "login": "Log in",
+    "biometric_login": "Log In via Fingerprint Scan",
+    "biometric_setup": "Set up",
+    "biometric_setup_title": "Would you like to set up biometric 2FA?",
+    "biometric_setup_cancel": "Cancel",
+    "signin": "Sign up",
+    "signin_prompt": "Haven't signed up yet? Sign up here!",
+    "login_prompt": "Already have an account? Log in here!",
     "login_title": "Log into InternApp",
+    "signin_title": "Sign up for InternApp",
     "login_insert_username": "Insert username",
     "login_insert_password": "Insert password",
-    "login_incorrectUsername": "Invalid username / password",
-    "login_incorrectPassword": "Invalid username / password"
+    "login_incorrect_username": "Invalid username / password",
+    "login_incorrect_password": "Invalid username / password"
   }
 }

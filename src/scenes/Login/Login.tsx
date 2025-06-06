@@ -12,10 +12,13 @@ import DropShadow from 'react-native-drop-shadow';
 import LabeledField from '../../components/LabeledField'
 import { User } from '../../assets/SharedTypes'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import ReactNativeBiometrics, { BiometryType, BiometryTypes } from 'react-native-biometrics';
 
 interface LoginProps {
     navigation: any,
 }
+
+const rnBiometrics = new ReactNativeBiometrics({ allowDeviceCredentials: false });
 
 function Login(props: LoginProps) {
     const appContext = useContext(AppContext)
@@ -24,6 +27,8 @@ function Login(props: LoginProps) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [signIn, setSignIn] = useState(false)
+    const [biometricSetUpFlag, setBiometricSetUpFlag] = useState(false)
+    const [biometricType, setBiometricType] = useState<any>(undefined)
     const [registeredUsers, setRegisteredUsers] = useState(Array<User>)
 
     const knownUsers: User[] = [
@@ -41,15 +46,27 @@ function Login(props: LoginProps) {
         },
         {
             username: 'Admin',
-            password: '1234'
+            password: '1234',
+            biometricEnabled: true
         },
     ]
 
     const prevUserHandle = async () => {
         const jsonValue = await AsyncStorage.getItem('login');
-        console.log(jsonValue != null ? JSON.parse(jsonValue) : '')
-        jsonValue != null ? appContext?.app.setUsername(JSON.parse(jsonValue).username) : null
-        return jsonValue != null ? props.navigation.navigate('Landing') : null;
+        const user : User = JSON.parse(jsonValue as string)
+        jsonValue != null ? appContext?.app.setUsername(user.username) : null
+
+        if (user.biometricEnabled) {
+            setUsername(user.username)
+            setPassword(user.password)
+            biometricLoginVerify()
+        } else {
+            appContext?.app.handleLoader(true)
+            setTimeout(() => {
+                props.navigation.navigate('Landing')
+                appContext?.app.handleLoader(false)
+            }, 100)
+        }
     }
 
     const getRegisteredUsers = async () => {
@@ -104,13 +121,68 @@ function Login(props: LoginProps) {
         }
     }
 
+    const findBiometricType = async () => {
+        const { biometryType } = await rnBiometrics.isSensorAvailable();
+        setBiometricType(biometryType as BiometryType)
+    }
+
+    const biometricSetUp = async (successFunction: () => void) => {
+        await rnBiometrics.simplePrompt({ promptMessage: 'Confirm fingerprint' })
+            .then((resultObject) => {
+                const { success } = resultObject
+
+                if (success) {
+                    console.log('successful biometrics provided')
+
+                    var tempArray: User[] = registeredUsers.slice()
+                    const entry = registeredUsers.find(item => item.username == username)
+                    if (!entry) {
+                        return
+                    }
+                    entry.biometricEnabled = true
+                    setRegisteredUsers(tempArray)
+                    const jsonRegisteredUsers = JSON.stringify(tempArray)
+                    AsyncStorage.setItem('registeredUsers', jsonRegisteredUsers)
+                    successFunction()
+                } else {
+                    console.log('user cancelled biometric prompt')
+                }
+            })
+            .catch(() => {
+                console.log('biometrics failed')
+            })
+    }
+
+    const biometricLoginVerify = async () => {
+        await rnBiometrics.simplePrompt({ promptMessage: 'Confirm fingerprint' })
+            .then((resultObject) => {
+                const { success } = resultObject
+
+                if (success) {
+                    console.log('successful biometrics provided')
+
+                    appContext?.app.handleLoader(true)
+                    setTimeout(() => {
+                        props.navigation.navigate('Landing')
+                        appContext?.app.handleLoader(false)
+                    }, 100)
+                } else {
+                    console.log('user cancelled biometric prompt')
+                }
+            })
+            .catch(() => {
+                console.log('biometrics failed')
+            })
+    }
+
     useEffect(() => {
         console.log("render")
         prevUserHandle()
         getRegisteredUsers()
+        findBiometricType()
     }, [])
 
-    const login = (button: string) => {
+    const login = () => {
         appContext?.app.handleLoader(true)
         var entry = knownUsers.find(item => item.username == username)
         appContext?.app.handleLoader(false)
@@ -131,41 +203,51 @@ function Login(props: LoginProps) {
             return
         }
 
-        const User: User = {
-            username: username,
-            password: password
-        }
-        savePrevUser(User)
+        savePrevUser(entry)
 
+        setSignIn(false)
+        setBiometricSetUpFlag(false)
         setWarning(false)
         setUsername('')
         setPassword('')
 
-        appContext?.app.handleLoader(true)
-        setTimeout(() => {
-            props.navigation.navigate('Landing')
-            appContext?.app.handleLoader(false)
-        }, 100)
+        if (entry.biometricEnabled) {
+            biometricLoginVerify()
+        } else {
+            appContext?.app.handleLoader(true)
+            setTimeout(() => {
+                props.navigation.navigate('Landing')
+                appContext?.app.handleLoader(false)
+            }, 100)
+        }
     }
 
     return (
         <ScrollView contentContainerStyle={styles.mainContainer}>
             <DropShadow style={styles.loginContainerShadow}>
-                {signIn ? (
+                {signIn ? biometricSetUpFlag ? (
+                    <View style={styles.loginContainer}>
+                        <Text style={styles.title}>{t("login_screen.biometric_setup_title")}</Text>
+                        <CustomButton text={t('login_screen.biometric_setup')} onPress={() => biometricSetUp(login)} />
+                        <TouchableOpacity onPress={() => (setSignIn(false), setWarning(false), setBiometricSetUpFlag(false), login())}>
+                            <Text style={styles.signLogInPrompt}>{t('login_screen.biometric_setup_cancel')}</Text>
+                        </TouchableOpacity>
+                    </View>
+                ) : (
                     <View style={styles.loginContainer}>
                         <Text style={styles.title}>{t("login_screen.signin_title")}</Text>
-                        <LabeledField warningText={warning ? t('login_screen.signin_existingUsername') : undefined} placeholder={t('login_screen.login_insert_username')} onChangeText={setUsername} value={username} />
-                        <LabeledField placeholder={t('login_screen.login_insert_password')} onChangeText={setPassword} value={password} />
-                        <CustomButton text={t('login_screen.signin')} onPress={registerUser} />
+                        <LabeledField warningText={warning ? t('login_screen.signin_existing_username') : undefined} placeholder={t('login_screen.login_insert_username')} onChangeText={setUsername} value={username} />
+                        <LabeledField placeholder={t('login_screen.login_insert_password')} onChangeText={setPassword} value={password} newPassword={true}/>
+                        <CustomButton text={t('login_screen.signin')} onPress={() => (registerUser(), biometricType == BiometryTypes.Biometrics || biometricType == BiometryTypes.TouchID ? setBiometricSetUpFlag(true) : login())} />
                         <TouchableOpacity onPress={() => (setSignIn(false), setWarning(false))}>
-                            <Text style={styles.signLogInPrompt}>{t('login_screen.signin_prompt')}</Text>
+                            <Text style={styles.signLogInPrompt}>{t('login_screen.login_prompt')}</Text>
                         </TouchableOpacity>
                     </View>
                 ) : (
                     <View style={styles.loginContainer}>
                         <Text style={styles.title}>{t("login_screen.login_title")}</Text>
-                        <LabeledField warningText={warning ? t('login_screen.login_incorrectUsername') : undefined} placeholder={t('login_screen.login_insert_username')} onChangeText={setUsername} value={username} />
-                        <LabeledField warningText={warning ? t('login_screen.login_incorrectPassword') : undefined} placeholder={t('login_screen.login_insert_password')} onChangeText={setPassword} value={password} secureTextEntry={true} />
+                        <LabeledField warningText={warning ? t('login_screen.login_incorrect_username') : undefined} placeholder={t('login_screen.login_insert_username')} onChangeText={setUsername} value={username} />
+                        <LabeledField warningText={warning ? t('login_screen.login_incorrect_password') : undefined} placeholder={t('login_screen.login_insert_password')} onChangeText={setPassword} value={password} secureTextEntry={true} />
                         <CustomButton text={t('login_screen.login')} onPress={login} />
                         <TouchableOpacity onPress={() => (setSignIn(true), setWarning(false))}>
                             <Text style={styles.signLogInPrompt}>{t('login_screen.signin_prompt')}</Text>
