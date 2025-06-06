@@ -20,13 +20,12 @@ export default function CustomButton(props: CustomButtonProps) {
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    width: "80%",
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: padding.full,
-    padding: padding.full,
+    padding: padding.threequarters,
     backgroundColor: colors.primary,
-    borderRadius: padding.full
+    borderRadius: 5
   },
   buttonText: {
     color: colors.white,

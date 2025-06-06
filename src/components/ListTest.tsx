@@ -26,8 +26,6 @@ const styles = StyleSheet.create({
   listContainer: {
     backgroundColor: colors.grey,
     width: "80%",
-    /*justifyContent: "center",
-    alignItems: "center",*/
     borderRadius: 2,
     borderWidth: 2,
     borderColor: colors.grey,

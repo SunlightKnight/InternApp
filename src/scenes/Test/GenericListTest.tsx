@@ -47,7 +47,7 @@ function GenericListTest(props: ListProps) {
 
 const styles = StyleSheet.create({
   defaultContainer: {
-    flex: 1, 
+    flex: 1,
     justifyContent: "center", 
     alignItems: "center"
   },

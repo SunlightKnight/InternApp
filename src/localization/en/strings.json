@@ -17,5 +17,13 @@
     "profile_show_more": "Show more",
     "profile_show_less": "Show less",
     "profile_biography": "Biography"
+  },
+  "login_screen": {
+    "login": "Login",
+    "login_title": "Log into InternApp",
+    "login_insert_username": "Insert username",
+    "login_insert_password": "Insert password",
+    "login_incorrectUsername": "Invalid username / password",
+    "login_incorrectPassword": "Invalid username / password"
   }
 }

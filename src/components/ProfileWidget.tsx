@@ -100,6 +100,11 @@ export type ProfileEntry = {
   quoteAuthor?: string
   biography?: string
   cellNumber: number
+  certifications? : CertificationEntry[]
+}
+
+export type CertificationEntry = {
+
 }
 
 const styles = StyleSheet.create({

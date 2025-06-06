@@ -5,6 +5,7 @@ import { Text, ScrollView } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import padding from '../../styles/padding';
 
 interface LandingProps {
   navigation: any
@@ -24,7 +25,7 @@ function Landing(props: LandingProps) {
   }
 
   return (
-    <ScrollView contentContainerStyle={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+    <ScrollView contentContainerStyle={{flex: 1, justifyContent: "center", alignItems: "center", padding: padding.half, gap: 5}}>
       <Text>{t("landing_screen.landing_title")}</Text>
       <CustomButton onPress={() => testLoader("data")} text={t("landing_screen.landing_data")} />
       <CustomButton onPress={() => testLoader("profile")} text={t("landing_screen.landing_profile")} />
