@@ -62,7 +62,12 @@ export default function CustomHeader(props: CustomHeaderProps) {
             ) : null}
 
             {props.showLogout ? (
-                <IconTextReversed onPress={logout} imageSrc={images.logout} text={appContext?.app.username as string} textSize={fontSize.normal} color={colors.white} style={styles.logoutContainer} />
+                <View>
+                    <IconTextReversed onPress={logout} imageSrc={images.logout} text={appContext?.app.user.userName as string} textSize={fontSize.big} color={colors.white} style={styles.logoutContainer} />
+                    <TouchableOpacity onPress={backPress} style={styles.optionsContainer}>
+                        <Image source={images.settings} resizeMode="contain" style={styles.backButtonImage} />
+                    </TouchableOpacity>
+                </View>
             ) : null}
         </View>
     );
@@ -81,10 +86,20 @@ const styles = StyleSheet.create({
         alignSelf: "flex-end",
         position: "absolute",
 
-        marginHorizontal: padding.half,
-        marginTop: Platform.OS === "ios" ? padding.full : HEADER_HEIGHT - 32
+        marginHorizontal: padding.half + 30,
+        marginTop: Platform.OS === "ios" ? padding.full : HEADER_HEIGHT - 33
     },
     backButtonContainer: {
+        position: "absolute",
+
+        width: 30,
+        height: 30,
+
+        marginHorizontal: padding.half,
+        marginTop: Platform.OS === "ios" ? padding.full : HEADER_HEIGHT - 35
+    },
+    optionsContainer: {
+        alignSelf: "flex-end",
         position: "absolute",
 
         width: 30,

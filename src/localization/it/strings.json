@@ -8,7 +8,8 @@
   "landing_screen": {
     "landing_title": "Landing",
     "landing_data": "[TEST] Apri dati salvati",
-    "landing_profile": "Apri profilo"
+    "landing_profile": "Apri profilo",
+    "landing_books": "Biblioteca"
   },
   "listTest_screen": {
     "list_title": "Lista dati salvati"
@@ -26,6 +27,7 @@
     "biometric_setup_cancel": "Annulla",
     "signin": "Registrati",
     "signin_prompt": "Non sei ancora registrato? Registrati qui!",
+    "signin_existing_username": "Esiste già un account con questo nome utente!",
     "login_prompt": "Già un utente? Fai l'accesso qui!",
     "login_title": "Accedi ad InternApp",
     "signin_title": "Registrati ad InternApp",
@@ -33,5 +35,10 @@
     "login_insert_password": "Inserire password",
     "login_incorrect_username": "Nome utente / password non validi",
     "login_incorrect_password": "Nome utente / password non validi"
+  },
+  "books_list": {
+    "entry_author": "Autore/i: ",
+    "entry_description": "Descrizione",
+    "search_bar_placeholder": "Cerca..."
   }
 }

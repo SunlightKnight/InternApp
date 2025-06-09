@@ -4,7 +4,7 @@
  *
  * @format
  */
-
+import './gesture-handler.js';
 import React from 'react';
 import {
   StatusBar,

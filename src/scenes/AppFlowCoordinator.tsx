@@ -22,8 +22,11 @@ import Login from './Login/Login'
 import CustomHeader from '../components/CustomHeader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUsername } from '../utils/GlobalVariables';
+import APIList from './Test/APIList';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createStackNavigator()
+const Drawer = createDrawerNavigator()
 const Theme = {
   ...DefaultTheme,
   colors: {
@@ -71,7 +74,7 @@ export default function AppFlowCoordinator() {
   const getPrevUser = async () => {
     const jsonValue = await AsyncStorage.getItem('login');
     console.log(jsonValue != null ? JSON.parse(jsonValue) : '')
-    jsonValue != null ? appContext?.app.setUsername(JSON.parse(jsonValue).username) : null;
+    jsonValue != null ? appContext?.app.setUser(JSON.parse(jsonValue)) : null;
   }
 
   // Retrieves user's username and saved token.
@@ -80,11 +83,14 @@ export default function AppFlowCoordinator() {
     console.log("*** AppFlowCoordinator - LOADED")
   }
 
-  const pages: { [key: string]: any } = {
+  const onboardingPages: { [key: string]: any } = {
     Login: {
       component: Login,
       parentProps: {},
     },
+  };
+
+  const pages: { [key: string]: any } = {
     Landing: {
       component: Landing,
       parentProps: {},
@@ -96,6 +102,10 @@ export default function AppFlowCoordinator() {
     ProfileWindow: {
       component: ProfileWindow,
       parentProps: {}
+    },
+    APIList: {
+      component: APIList,
+      parentProps: {}
     }
   };
 
@@ -106,36 +116,60 @@ export default function AppFlowCoordinator() {
           ref={navRef}
           theme={Theme}
           onStateChange={(navigationState: NavigationState | undefined) => {
-            { navigationState?.routes.length ? navigationState?.routes.length >= 3 ? setBackVisible(true) : setBackVisible(false) : null }
-            { navigationState?.routes.length ? navigationState?.routes.length >= 2 ? setLogoutVisible(true) : setLogoutVisible(false) : null }
             console.log(backVisible + " " + logoutVisible)
             console.log(`*** AppFlowCoordinator:onStateChange: navigationState=${JSON.stringify(navigationState)}`)
           }}>
 
-          <Stack.Navigator
-            initialRouteName={'Login'}
-            screenOptions={screenOptions}>
-            {Object.keys(pages).map((key: string) => {
-              const page = pages[key];
-              const PageComponent = page.component;
-              return (
-                <Stack.Screen
-                  key={key}
-                  name={key}>
-                  {(props: any) => {
-                    return (
-                      <SafeAreaProvider>
-                        <PageComponent
-                          {...props}
-                          parentProps={page.parentProps}
-                        />
-                      </SafeAreaProvider>
-                    );
-                  }}
-                </Stack.Screen>
-              );
-            })}
-          </Stack.Navigator>
+          {appContext?.app.user.userName == '' ? (
+            <Stack.Navigator
+              initialRouteName={'Login'}>
+              {Object.keys(onboardingPages).map((key: string) => {
+                const page = onboardingPages[key];
+                const PageComponent = page.component;
+                return (
+                  <Stack.Screen
+                    key={key}
+                    name={key}>
+                    {(props: any) => {
+                      return (
+                        <SafeAreaProvider>
+                          <PageComponent
+                            {...props}
+                            parentProps={page.parentProps}
+                          />
+                        </SafeAreaProvider>
+                      );
+                    }}
+                  </Stack.Screen>
+                );
+              })}
+            </Stack.Navigator>
+          ) : (
+            <Drawer.Navigator
+              initialRouteName={'Landing'}
+              screenOptions={screenOptions}>
+              {Object.keys(pages).map((key: string) => {
+                const page = pages[key];
+                const PageComponent = page.component;
+                return (
+                  <Drawer.Screen
+                    key={key}
+                    name={key}>
+                    {(props: any) => {
+                      return (
+                        <SafeAreaProvider>
+                          <PageComponent
+                            {...props}
+                            parentProps={page.parentProps}
+                          />
+                        </SafeAreaProvider>
+                      );
+                    }}
+                  </Drawer.Screen>
+                );
+              })}
+            </Drawer.Navigator>
+          )}
         </NavigationContainer>
       </View>
     </AppProvider>

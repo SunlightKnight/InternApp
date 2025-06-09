@@ -8,7 +8,8 @@
   "landing_screen": {
     "landing_title": "Landing",
     "landing_data": "[TEST] Open saved data",
-    "landing_profile": "Open profile"
+    "landing_profile": "Open profile",
+    "landing_books": "Library"
   },
   "listTest_screen": {
     "list_title": "Saved data list"
@@ -26,6 +27,7 @@
     "biometric_setup_cancel": "Cancel",
     "signin": "Sign up",
     "signin_prompt": "Haven't signed up yet? Sign up here!",
+    "signin_existing_username": "Account already exists with this same username!",
     "login_prompt": "Already have an account? Log in here!",
     "login_title": "Log into InternApp",
     "signin_title": "Sign up for InternApp",
@@ -33,5 +35,10 @@
     "login_insert_password": "Insert password",
     "login_incorrect_username": "Invalid username / password",
     "login_incorrect_password": "Invalid username / password"
+  },
+  "books_list": {
+    "entry_author": "Author/s: ",
+    "entry_description": "Description",
+    "search_bar_placeholder": "Search..."
   }
 }

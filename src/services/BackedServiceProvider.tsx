@@ -3,6 +3,7 @@ import { throwError } from "./BackendError";
 import { useTranslation } from "react-i18next";
 import * as AppConfig from '../config/config';
 import BackendServiceInterface from "./BackendServiceInterface";
+import { Author, BookEntry, CoverPhoto, User } from "../assets/SharedTypes";
 
 // Default timeout: after FETCH_TIMEOUT * 1000 (see line 278) the promise is automatically rejected.
 const FETCH_TIMEOUT = 30
@@ -236,8 +237,47 @@ const BackendServiceProvider = ({ children } : any) => {
   //   )
   // } 
 
+  const getUsers = () : Promise<User[]> => {
+    return callJSON(
+       API_BASE_URL + `/api/v1/Users`,
+       HTTPMethod.GET,
+       undefined,
+       HTTPContentType.json
+    )
+  }
+
+  const getBooks = () : Promise<BookEntry[]> => {
+    return callJSON(
+       API_BASE_URL + `/api/v1/Books`,
+       HTTPMethod.GET,
+       undefined,
+       HTTPContentType.json
+    )
+  }
+  const getAuthors = () : Promise<Author[]> => {
+    return callJSON(
+       API_BASE_URL + `/api/v1/Authors`,
+       HTTPMethod.GET,
+       undefined,
+       HTTPContentType.json
+    )
+  }
+  const getImages = () : Promise<CoverPhoto[]> => {
+    return callJSON(
+       API_BASE_URL + `/api/v1/CoverPhotos`,
+       HTTPMethod.GET,
+       undefined,
+       HTTPContentType.json
+    )
+  }
+
   return <BackendServiceContext.Provider value={{
-    beService: {}
+    beService: {
+      getUsers : getUsers,
+      getBooks : getBooks,
+      getAuthors : getAuthors,
+      getImages : getImages
+    }
   }}>
     {children}
   </BackendServiceContext.Provider>

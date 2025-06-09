@@ -21,7 +21,7 @@ function Landing(props: LandingProps) {
   const testLoader = (button: string) => {
     appContext?.app.handleLoader(true)
     setTimeout(() => {
-      button == "data" ? props.navigation.navigate('GenericListTest') : props.navigation.navigate('ProfileWindow')
+      props.navigation.navigate(button)
       appContext?.app.handleLoader(false)
     }, 500)
   }
@@ -31,8 +31,9 @@ function Landing(props: LandingProps) {
       <DropShadow style={styles.landingContainerShadow}>
         <View style={styles.landingContainer}>
           <Text>{t("landing_screen.landing_title")}</Text>
-          <CustomButton onPress={() => testLoader("data")} text={t("landing_screen.landing_data")} />
-          <CustomButton onPress={() => testLoader("profile")} text={t("landing_screen.landing_profile")} />
+          <CustomButton onPress={() => testLoader("GenericListTest")} text={t("landing_screen.landing_data")} />
+          <CustomButton onPress={() => testLoader("ProfileWindow")} text={t("landing_screen.landing_profile")} />
+            <CustomButton onPress={() => testLoader("APIList")} text={t("landing_screen.landing_books")} />
         </View>
       </DropShadow>
     </ScrollView>

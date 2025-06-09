@@ -1,5 +1,28 @@
 export type User = {
-    username: string,
+    id?: number,
+    userName: string,
     password: string,
-    biometricEnabled? : boolean
+    biometricEnabled?: boolean
+}
+
+export type BookEntry = {
+    id: number,
+    title: string,
+    description: string,
+    pageCount: number,
+    excerpt: string,
+    publishDate: string
+}
+
+export type Author = {
+    id: number,
+    idBook: number,
+    firstName: string,
+    lastName: string
+}
+
+export type CoverPhoto = {
+    id: number,
+    idBook: number,
+    url: string,
 }
