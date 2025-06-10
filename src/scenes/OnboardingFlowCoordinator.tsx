@@ -15,14 +15,14 @@ import colors from '../styles/colors';
 // import { useTranslation } from 'react-i18next';
 import padding from '../styles/padding';
 import * as images from '../assets';
-import Landing from './Landing/Landing';
-import GenericListTest from './Test/GenericListTest'
-import ProfileWindow from './Test/ProfileWindow'
-import Login from './Login/Login'
-import CustomHeader from '../components/CustomHeader';
+import Landing from './Main/Landing/Landing';
+import GenericListTest from './Main/Test/GenericListTest'
+import ProfileWindow from './Main/Test/ProfileWindow'
+import Login from './Main/Login/Login'
+import CustomHeader from '../components/Main/CustomHeader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUsername } from '../utils/GlobalVariables';
-import APIList from './Test/APIList';
+import APIList from './Main/Test/APIList';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createStackNavigator()

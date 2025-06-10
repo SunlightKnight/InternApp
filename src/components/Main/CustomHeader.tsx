@@ -1,15 +1,15 @@
 import React, { Ref, useContext, useEffect } from 'react';
 import { StyleSheet, View, Platform, Image, TouchableOpacity, BackHandler } from 'react-native';
-import IconTextReversed from '../components/IconTextReversed'
+import IconTextReversed from './IconTextReversed'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as images from '../assets/index'
+import * as images from '../../assets/index'
 
-import colors from '../styles/colors';
-import padding from '../styles/padding';
-import fontSize from '../styles/fontSize';
-import { HEADER_HEIGHT } from '../styles/styles';
+import colors from '../../styles/colors';
+import padding from '../../styles/padding';
+import fontSize from '../../styles/fontSize';
+import { HEADER_HEIGHT } from '../../styles/styles';
 import { DrawerActions, StackActions, useFocusEffect, useNavigation } from '@react-navigation/native';
-import { AppContext } from '../utils/AppProvider/AppProvider';
+import { AppContext } from '../../utils/AppProvider/AppProvider';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 type CustomHeaderProps = {

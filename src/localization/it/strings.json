@@ -33,6 +33,10 @@
     "signin_title": "Registrati ad InternApp",
     "login_insert_username": "Inserire nome utente",
     "login_insert_password": "Inserire password",
+    "login_insert_first_name": "Inserire nome",
+    "login_insert_last_name": "Inserire cognome",
+    "login_insert_email": "Inserire indirizzo E-Mail",
+    "login_insert_phone": "Inserire numero di telefono",
     "login_incorrect_username": "Nome utente / password non validi",
     "login_incorrect_password": "Nome utente / password non validi"
   },
@@ -44,5 +48,9 @@
   "activity_screen" : {
     "completed": "COMPLETATA",
     "incomplete": "NON COMPLETATA"
+  },
+  "home_screen": {
+    "mainApp": "Applicazione principale",
+    "pets": "Gestione animali domestici"
   }
 }

@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import DropShadow from 'react-native-drop-shadow';
 import { StyleSheet, Text, View, Dimensions, Image, Platform, UIManager, LayoutAnimation, Animated, useAnimatedValue, Linking } from 'react-native';
-import * as images from '../assets/index.ts';
+import * as images from '../../assets/index.ts';
 import IconText from './IconText.tsx';
 
-import colors from '../styles/colors';
-import padding from '../styles/padding';
-import fontSize from '../styles/fontSize';
+import colors from '../../styles/colors.ts';
+import padding from '../../styles/padding.ts';
+import fontSize from '../../styles/fontSize.ts';
 import { useLocale } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { AnimatedView } from 'react-native-reanimated/lib/typescript/component/View';

@@ -25,6 +25,8 @@ import { setUsername } from '../utils/GlobalVariables';
 import APIList from './Main/Test/APIList';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import ActivityList from './Main/Test/ActivityList';
+import Inventory from './Pet/Inventory/Inventory'
+import Store from './Pet/Store/Store'
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -69,32 +71,20 @@ export default function AppFlowCoordinator() {
     }
 
     const pages: { [key: string]: any } = {
-        Landing: {
-            component: Landing,
+        Inventory: {
+            component: Inventory,
             parentProps: {},
         },
-        GenericListTest: {
-            component: GenericListTest,
-            parentProps: {},
-        },
-        ProfileWindow: {
-            component: ProfileWindow,
+        Store: {
+            component: Store,
             parentProps: {}
         },
-        APIList: {
-            component: APIList,
-            parentProps: {}
-        },
-        ActivityList: {
-            component: ActivityList,
-            parentProps: {}
-        }
     };
 
     return (
     <View style={{ width: "100%", height: "100%" }}>
         <Drawer.Navigator
-            initialRouteName={'Landing'}
+            initialRouteName={'Inventory'}
             screenOptions={screenOptions}>
             {Object.keys(pages).map((key: string) => {
                 const page = pages[key];

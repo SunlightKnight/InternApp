@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, FlatList, Text, View } from 'react-native';
-import BooksListEntry from '../BooksList/BooksListEntry'
 
 import colors from '../../styles/colors';
 import padding from '../../styles/padding';
@@ -9,13 +8,13 @@ import { Activity, Author, BookEntry, CoverPhoto } from '../../assets/SharedType
 import { TextInput } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
 import DropShadow from 'react-native-drop-shadow';
-import ActivityListEntry from './ActivityListEntry'
+import PetsInventoryEntry from './PetsInventoryEntry'
 
-type ActivityListProps = {
+type PetsInventoryProps = {
     data: Activity[]
 }
 
-export default function ActivityList(props: ActivityListProps) {
+export default function ActivityList(props: PetsInventoryProps) {
     const { t } = useTranslation()
     const [searchText, setSearchText] = useState('')
 
@@ -30,7 +29,7 @@ export default function ActivityList(props: ActivityListProps) {
             </DropShadow>
             <View style={{ height: "90%" }}>
                 <FlatList style={styles.listContainer} data={filteredData} keyExtractor={(item) => String(item.id)} renderItem={({ item }) => (
-                    <ActivityListEntry entry={item}></ActivityListEntry>
+                    <PetsInventoryEntry entry={item}></PetsInventoryEntry>
                 )} numColumns={1} />
             </View>
         </View>

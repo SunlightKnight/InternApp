@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, FlatList, Text, View } from 'react-native';
-import BooksListEntry from './BooksListEntry'
+import BooksListEntry from '../BooksList/BooksListEntry'
 
-import colors from '../../styles/colors';
-import padding from '../../styles/padding';
-import fontSize from '../../styles/fontSize';
-import { Author, BookEntry, CoverPhoto } from '../../assets/SharedTypes';
+import colors from '../../../styles/colors';
+import padding from '../../../styles/padding';
+import fontSize from '../../../styles/fontSize';
+import { Activity, Author, BookEntry, CoverPhoto } from '../../../assets/SharedTypes';
 import { TextInput } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
 import DropShadow from 'react-native-drop-shadow';
+import ActivityListEntry from './ActivityListEntry'
 
-type BooksListProps = {
-    data: BookEntry[]
-    authors: Author[]
-    images: CoverPhoto[]
+type ActivityListProps = {
+    data: Activity[]
 }
 
-export default function BooksList(props: BooksListProps) {
+export default function ActivityList(props: ActivityListProps) {
     const { t } = useTranslation()
     const [searchText, setSearchText] = useState('')
 
@@ -31,7 +30,7 @@ export default function BooksList(props: BooksListProps) {
             </DropShadow>
             <View style={{ height: "90%" }}>
                 <FlatList style={styles.listContainer} data={filteredData} keyExtractor={(item) => String(item.id)} renderItem={({ item }) => (
-                    <BooksListEntry entry={item} imageSrc={props.images.find((image) => image.idBook == item.id)} authors={props.authors.filter((author) => author.idBook === item.id)}></BooksListEntry>
+                    <ActivityListEntry entry={item}></ActivityListEntry>
                 )} numColumns={1} />
             </View>
         </View>

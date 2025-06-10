@@ -1,15 +1,15 @@
 import { useContext } from 'react';
-import { BackendServiceContext } from '../../services/BackedServiceProvider';
-import { AppContext } from '../../utils/AppProvider/AppProvider'
+import { BackendServiceContext } from '../../../services/BackedServiceProvider.tsx';
+import { AppContext } from '../../../utils/AppProvider/AppProvider.tsx'
 import { Text, View, StyleSheet, Modal } from 'react-native';
-import CustomButton from '../../components/CustomButton';
+import CustomButton from '../../../components/Main/CustomButton.tsx';
 import { useTranslation } from 'react-i18next';
-import ListTest, { dataEntry } from '../../components/ListTest';
+import ListTest, { dataEntry } from '../../../components/Main/ListTest.tsx';
 
-import colors from '../../styles/colors.ts';
-import padding from '../../styles/padding';
-import fontSize from '../../styles/fontSize';
-import generalStyles from '../../styles/styles.ts'
+import colors from '../../../styles/colors.ts';
+import padding from '../../../styles/padding.ts';
+import fontSize from '../../../styles/fontSize.ts';
+import generalStyles from '../../../styles/styles.ts'
 import { ScrollView } from 'react-native-gesture-handler';
 
 interface ListProps {

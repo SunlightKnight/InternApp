@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, ActivityIndicator, Platform } from 'react-native';
 
-import colors from '../styles/colors';
-import padding from '../styles/padding';
+import colors from '../../styles/colors';
+import padding from '../../styles/padding';
 
 type LoaderProps = {
   loading: boolean

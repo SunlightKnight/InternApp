@@ -15,17 +15,20 @@ import colors from '../styles/colors';
 // import { useTranslation } from 'react-i18next';
 import padding from '../styles/padding';
 import * as images from '../assets';
-import Landing from './Landing/Landing';
-import GenericListTest from './Test/GenericListTest'
-import ProfileWindow from './Test/ProfileWindow'
-import Login from './Login/Login'
-import CustomHeader from '../components/CustomHeader';
+import Landing from './Main/Landing/Landing';
+import GenericListTest from './Main/Test/GenericListTest'
+import ProfileWindow from './Main/Test/ProfileWindow'
+import Login from './Main/Login/Login'
+import CustomHeader from '../components/Main/CustomHeader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUsername } from '../utils/GlobalVariables';
-import APIList from './Test/APIList';
+import APIList from './Main/Test/APIList';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import OnboardingFlowCoordinator from './OnboardingFlowCoordinator';
 import MainFlowCoordinator from './MainFlowCoordinator';
+import OnboardingPetFlowCoordinator from './OnboardingPetFlowCoordinator';
+import MainPetFlowCoordinator from './MainPetFlowCoordinator';
+import HomeSelector from './HomeSelector';
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -70,12 +73,24 @@ export default function AppFlowCoordinator() {
   }
 
   const pages: { [key: string]: any } = {
+    Home: {
+      component: HomeSelector,
+      parentProps: {}
+    },
     Onboarding: {
       component: OnboardingFlowCoordinator,
       parentProps: {},
     },
+    OnboardingPets: {
+      component: OnboardingPetFlowCoordinator,
+      parentProps: {},
+    },
     Main: {
       component: MainFlowCoordinator,
+      parentProps: {},
+    },
+    MainPets: {
+      component: MainPetFlowCoordinator,
       parentProps: {},
     },
   };
@@ -92,7 +107,7 @@ export default function AppFlowCoordinator() {
           }}>
 
           <Stack.Navigator
-            initialRouteName={'Onboarding'}
+            initialRouteName={'Home'}
             screenOptions={screenOptions}>
             {Object.keys(pages).map((key: string) => {
               const page = pages[key];

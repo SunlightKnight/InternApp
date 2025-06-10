@@ -5,6 +5,17 @@ export type User = {
     biometricEnabled?: boolean
 }
 
+export type PetUser = {
+    id: number,
+    username: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    phone: string,
+    userStatus: number
+}
+
 export type BookEntry = {
     id: number,
     title: string,

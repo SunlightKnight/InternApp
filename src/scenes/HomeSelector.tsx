@@ -1,12 +1,12 @@
 import { useContext } from 'react';
-import { BackendServiceContext } from '../../services/BackedServiceProvider';
-import { AppContext } from '../../utils/AppProvider/AppProvider'
+import { BackendServiceContext } from '../services/BackedServiceProvider';
+import { AppContext } from '../utils/AppProvider/AppProvider'
 import { Text, ScrollView, StyleSheet, View } from 'react-native';
-import CustomButton from '../../components/CustomButton';
+import CustomButton from '../components/Main/CustomButton';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import padding from '../../styles/padding';
-import colors from '../../styles/colors';
+import padding from '../styles/padding';
+import colors from '../styles/colors';
 import DropShadow from 'react-native-drop-shadow';
 
 interface LandingProps {
@@ -31,10 +31,8 @@ function Landing(props: LandingProps) {
       <DropShadow style={styles.landingContainerShadow}>
         <View style={styles.landingContainer}>
           <Text>{t("landing_screen.landing_title")}</Text>
-          <CustomButton onPress={() => testLoader("GenericListTest")} text={t("landing_screen.landing_data")} />
-          <CustomButton onPress={() => testLoader("ProfileWindow")} text={t("landing_screen.landing_profile")} />
-          <CustomButton onPress={() => testLoader("APIList")} text={t("landing_screen.landing_books")} />
-          <CustomButton onPress={() => testLoader("ActivityList")} text={t("landing_screen.landing_activities")} />
+          <CustomButton onPress={() => testLoader("Onboarding")} text={t("home_screen.mainApp")} />
+          <CustomButton onPress={() => testLoader("OnboardingPets")} text={t("home_screen.pets")} />
         </View>
       </DropShadow>
     </ScrollView>

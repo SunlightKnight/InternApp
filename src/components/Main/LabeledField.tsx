@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import DropShadow from 'react-native-drop-shadow';
 import { StyleSheet, Text, View, TextInput, TextInputProps, TouchableOpacity, Image } from 'react-native';
-import * as images from '../assets/index.ts';
+import * as images from '../../assets/index.ts';
 
-import colors from '../styles/colors.ts';
-import padding from '../styles/padding.ts';
-import fontSize from '../styles/fontSize.ts';
+import colors from '../../styles/colors.ts';
+import padding from '../../styles/padding.ts';
+import fontSize from '../../styles/fontSize.ts';
 import { useTranslation } from 'react-i18next';
 
 interface LabeledFieldProps extends TextInputProps {

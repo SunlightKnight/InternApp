@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, FlatList, Text} from 'react-native';
 
-import colors from '../styles/colors';
-import padding from '../styles/padding';
-import fontSize from '../styles/fontSize';
+import colors from '../../styles/colors';
+import padding from '../../styles/padding';
+import fontSize from '../../styles/fontSize';
 
 type ListTestProps = {
   data : dataEntry[]

@@ -1,4 +1,4 @@
-import { Activity, Author, BookEntry, CoverPhoto, User } from "../assets/SharedTypes";
+import { Activity, Author, BookEntry, CoverPhoto, PetUser, User } from "../assets/SharedTypes";
 
 // BackendServiceProvider MUST implement all the functions defined inside its interface.
 export default interface BackendServiceInterface {
@@ -7,4 +7,7 @@ export default interface BackendServiceInterface {
   getAuthors: () => Promise<Array<Author>>
   getImages: () => Promise<Array<CoverPhoto>>
   getActivities: () => Promise<Array<Activity>>
+  checkUser: (username : string) => Promise<PetUser>
+  loginPetUser: (username : string, password : string) => Promise<String>
+  createUser: (user : PetUser) => Promise<String>
 }

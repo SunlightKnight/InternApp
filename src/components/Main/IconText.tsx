@@ -1,11 +1,11 @@
 import React from 'react';
 import DropShadow from 'react-native-drop-shadow';
 import { StyleSheet, Text, View, Dimensions, Image, ImageSourcePropType, StyleProp, TouchableOpacity } from 'react-native';
-import { anonUser } from '../assets/index.ts';
+import { anonUser } from '../../assets/index.ts';
 
-import colors from '../styles/colors.ts';
-import padding from '../styles/padding.ts';
-import fontSize from '../styles/fontSize.ts';
+import colors from '../../styles/colors.ts';
+import padding from '../../styles/padding.ts';
+import fontSize from '../../styles/fontSize.ts';
 
 type iconTextProps = {
   style?: any,

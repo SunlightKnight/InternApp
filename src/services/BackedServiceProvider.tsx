@@ -3,12 +3,13 @@ import { throwError } from "./BackendError";
 import { useTranslation } from "react-i18next";
 import * as AppConfig from '../config/config';
 import BackendServiceInterface from "./BackendServiceInterface";
-import { Activity, Author, BookEntry, CoverPhoto, User } from "../assets/SharedTypes";
+import { Activity, Author, BookEntry, CoverPhoto, PetUser, User } from "../assets/SharedTypes";
 
 // Default timeout: after FETCH_TIMEOUT * 1000 (see line 278) the promise is automatically rejected.
 const FETCH_TIMEOUT = 30
 // APIs TEST enpoint, defined in "config.ts" file.
 const API_BASE_URL: string = AppConfig.API_ENDPOINT
+const API_BASE_URL_PETS: string = AppConfig.PETS_API_ENDPOINT
 
 export interface IJSON {
   [key: string]: any; 
@@ -278,6 +279,30 @@ const BackendServiceProvider = ({ children } : any) => {
        HTTPContentType.json
     )
   }
+  const loginPetUser = (username : string, password : string) : Promise<String> => {
+    return callJSON(
+       API_BASE_URL_PETS + `/user/login?username=${username}&password=${password}`,
+       HTTPMethod.GET,
+       undefined,
+       HTTPContentType.json
+    )
+  }
+  const checkUser = (username : string) : Promise<PetUser> => {
+    return callJSON(
+       API_BASE_URL_PETS + `/user/${username}`,
+       HTTPMethod.GET,
+       undefined,
+       HTTPContentType.json
+    )
+  }
+  const createUser = (user : PetUser) : Promise<string> => {
+    return callJSON(
+       API_BASE_URL_PETS + `/user`,
+       HTTPMethod.POST,
+       user,
+       HTTPContentType.json
+    )
+  }
 
   return <BackendServiceContext.Provider value={{
     beService: {
@@ -286,6 +311,9 @@ const BackendServiceProvider = ({ children } : any) => {
       getAuthors : getAuthors,
       getImages : getImages,
       getActivities: getActivities,
+      checkUser : checkUser,
+      loginPetUser: loginPetUser,
+      createUser : createUser
     }
   }}>
     {children}

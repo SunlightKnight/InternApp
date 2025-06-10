@@ -1,16 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
-import { BackendServiceContext } from '../../services/BackedServiceProvider';
-import { AppContext } from '../../utils/AppProvider/AppProvider'
+import { BackendServiceContext } from '../../../services/BackedServiceProvider.tsx';
+import { AppContext } from '../../../utils/AppProvider/AppProvider.tsx'
 import { Text, ScrollView, StyleSheet, View, TouchableOpacity } from 'react-native';
-import CustomButton from '../../components/CustomButton';
+import CustomButton from '../../../components/Main/CustomButton.tsx';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import colors from '../../styles/colors';
-import padding from '../../styles/padding.ts';
-import fontSize from '../../styles/fontSize.ts';
+import colors from '../../../styles/colors.ts';
+import padding from '../../../styles/padding.ts';
+import fontSize from '../../../styles/fontSize.ts';
 import DropShadow from 'react-native-drop-shadow';
-import LabeledField from '../../components/LabeledField'
-import { User } from '../../assets/SharedTypes'
+import LabeledField from '../../../components/Main/LabeledField.tsx'
+import { User } from '../../../assets/SharedTypes.tsx'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import ReactNativeBiometrics, { BiometryType, BiometryTypes } from 'react-native-biometrics';
 

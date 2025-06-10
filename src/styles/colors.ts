@@ -8,6 +8,8 @@ export default {
   green: "#80b476",
 
   primary: "#71AEF0",
+  petsPrimary: "#71f08a",
   primaryBackground: '#e0eeff',
+  petsPrimaryBackground: "#e0ffe1",
   secondary: "#608EBE"
 }

@@ -33,6 +33,10 @@
     "signin_title": "Sign up for InternApp",
     "login_insert_username": "Insert username",
     "login_insert_password": "Insert password",
+    "login_insert_first_name": "Insert first name",
+    "login_insert_last_name": "Insert last name",
+    "login_insert_email": "Insert E-Mail address",
+    "login_insert_phone": "Insert phone number",
     "login_incorrect_username": "Invalid username / password",
     "login_incorrect_password": "Invalid username / password"
   },
@@ -44,5 +48,9 @@
   "activity_screen" : {
     "completed": "COMPLETED",
     "incomplete": "NOT COMPLETED"
+  },
+  "home_screen": {
+    "mainApp": "Main application",
+    "pets": "Pets handler"
   }
 }

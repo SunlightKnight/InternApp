@@ -24,7 +24,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUsername } from '../utils/GlobalVariables';
 import APIList from './Main/Test/APIList';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import ActivityList from './Main/Test/ActivityList';
+import LoginPets from './Pet/LoginPets';
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -46,7 +46,7 @@ export default function AppFlowCoordinator() {
     const [logoutVisible, setLogoutVisible] = useState(true)
 
     const screenOptions = {
-        header: () => (<CustomHeader navigatorRef={navRef} showLogout={logoutVisible} showBack={backVisible}></CustomHeader>),
+        header: () => (<View></View>),
     };
 
     // useEffect hook: no dependencies between the [] are defined, hence it's called only once.
@@ -68,39 +68,23 @@ export default function AppFlowCoordinator() {
         console.log("*** AppFlowCoordinator - LOADED")
     }
 
-    const pages: { [key: string]: any } = {
-        Landing: {
-            component: Landing,
+    const onboardingPages: { [key: string]: any } = {
+        Login: {
+            component: LoginPets,
             parentProps: {},
         },
-        GenericListTest: {
-            component: GenericListTest,
-            parentProps: {},
-        },
-        ProfileWindow: {
-            component: ProfileWindow,
-            parentProps: {}
-        },
-        APIList: {
-            component: APIList,
-            parentProps: {}
-        },
-        ActivityList: {
-            component: ActivityList,
-            parentProps: {}
-        }
     };
 
     return (
     <View style={{ width: "100%", height: "100%" }}>
-        <Drawer.Navigator
-            initialRouteName={'Landing'}
+        <Stack.Navigator
+            initialRouteName={'Login'}
             screenOptions={screenOptions}>
-            {Object.keys(pages).map((key: string) => {
-                const page = pages[key];
+            {Object.keys(onboardingPages).map((key: string) => {
+                const page = onboardingPages[key];
                 const PageComponent = page.component;
                 return (
-                    <Drawer.Screen
+                    <Stack.Screen
                         key={key}
                         name={key}>
                         {(props: any) => {
@@ -113,10 +97,10 @@ export default function AppFlowCoordinator() {
                                 </SafeAreaProvider>
                             );
                         }}
-                    </Drawer.Screen>
+                    </Stack.Screen>
                 );
             })}
-        </Drawer.Navigator>
+        </Stack.Navigator>
     </View>
   )
 }
