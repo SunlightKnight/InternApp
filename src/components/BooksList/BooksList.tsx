@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, FlatList, Text, View } from 'react-native';
 import BooksListEntry from './BooksListEntry'
 
-import colors from '../styles/colors';
-import padding from '../styles/padding';
-import fontSize from '../styles/fontSize';
-import { Author, BookEntry, CoverPhoto } from '../assets/SharedTypes';
+import colors from '../../styles/colors';
+import padding from '../../styles/padding';
+import fontSize from '../../styles/fontSize';
+import { Author, BookEntry, CoverPhoto } from '../../assets/SharedTypes';
 import { TextInput } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
 import DropShadow from 'react-native-drop-shadow';

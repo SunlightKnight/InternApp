@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, FlatList, Text, View, TouchableOpacity, Image } from 'react-native';
 
-import colors from '../styles/colors';
-import padding from '../styles/padding';
-import fontSize from '../styles/fontSize';
-import { Author, BookEntry, CoverPhoto } from '../assets/SharedTypes';
+import colors from '../../styles/colors';
+import padding from '../../styles/padding';
+import fontSize from '../../styles/fontSize';
+import { Author, BookEntry, CoverPhoto } from '../../assets/SharedTypes';
 import { useTranslation } from 'react-i18next';
 import DropShadow from 'react-native-drop-shadow';
-import * as images from '../assets/index'
+import * as images from '../../assets/index'
 
 type BooksListEntryProps = {
     entry: BookEntry

@@ -33,7 +33,8 @@ function Landing(props: LandingProps) {
           <Text>{t("landing_screen.landing_title")}</Text>
           <CustomButton onPress={() => testLoader("GenericListTest")} text={t("landing_screen.landing_data")} />
           <CustomButton onPress={() => testLoader("ProfileWindow")} text={t("landing_screen.landing_profile")} />
-            <CustomButton onPress={() => testLoader("APIList")} text={t("landing_screen.landing_books")} />
+          <CustomButton onPress={() => testLoader("APIList")} text={t("landing_screen.landing_books")} />
+          <CustomButton onPress={() => testLoader("ActivityList")} text={t("landing_screen.landing_activities")} />
         </View>
       </DropShadow>
     </ScrollView>

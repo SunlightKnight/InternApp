@@ -9,15 +9,15 @@ interface AppContextType {
 
 export const AppContext = createContext<AppContextType | null>(null)
 
-const AppProvider = ({ children } : any) => {
+const AppProvider = ({ children }: any) => {
   const [loading, setLoading] = useState(false)
-  const [currentUser, setCurrentUser] = useState({userName: '', password: ''})
+  const [currentUser, setCurrentUser] = useState({ userName: '', password: '' })
 
   return <AppContext.Provider value={{
     app: {
       handleLoader: setLoading,
-      setUser : setCurrentUser,
-      user : currentUser
+      setUser: setCurrentUser,
+      user: currentUser,
     }
   }}>
     {children}

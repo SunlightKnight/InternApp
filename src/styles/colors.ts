@@ -4,7 +4,8 @@ export default {
   blackOpacity40: '#00000066',
   white: "#FFFFFF",
   grey: "#F7F7F7",
-  red: "#C41F1F",
+  red: "#db5757",
+  green: "#80b476",
 
   primary: "#71AEF0",
   primaryBackground: '#e0eeff',

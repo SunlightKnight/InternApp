@@ -12,8 +12,9 @@ import fontSize from '../../styles/fontSize.ts';
 import generalStyles from '../../styles/styles.ts'
 import { ScrollView } from 'react-native-gesture-handler';
 import ProfileWidget, { ProfileEntry } from '../../components/ProfileWidget.tsx';
-import { Author, BookEntry, CoverPhoto } from '../../assets/SharedTypes.tsx';
+import { Activity, Author, BookEntry, CoverPhoto } from '../../assets/SharedTypes.tsx';
 import BooksList from '../../components/BooksList/BooksList.tsx';
+import ActivityList from '../../components/ActivityList/ActivityList.tsx';
 
 interface ProfileProps {
     navigation: any
@@ -23,50 +24,26 @@ function ProfileWindow(props: ProfileProps) {
     const appContext = useContext(AppContext)
     const backendContext = useContext(BackendServiceContext)
     const { t } = useTranslation()
-    const [books, setBooks] = useState(Array<BookEntry>)
-    const [authors, setAuthors] = useState(Array<Author>)
-    const [images, setImages] = useState(Array<CoverPhoto>)
+    const [activities, setActivities] = useState(Array<Activity>)
 
-    const getBooks = () => {
-        backendContext?.beService.getBooks()
+    const getActivities = () => {
+        backendContext?.beService.getActivities()
             .then((result) => {
                 console.log(result)
-                setBooks(result)
+                setActivities(result)
             })
             .catch((result) => {
-                getBooks
-            })
-    }
-    const getAuthors = () => {
-        backendContext?.beService.getAuthors()
-            .then((result) => {
-                console.log(result)
-                setAuthors(result)
-            })
-            .catch((result) => {
-                getAuthors()
-            })
-    }
-    const getImages = () => {
-        backendContext?.beService.getImages()
-            .then((result) => {
-                console.log(result)
-                setImages(result)
-            })
-            .catch((result) => {
-                getImages()
+                getActivities()
             })
     }
 
     useEffect(() => {
-        getBooks()
-        getAuthors()
-        getImages()
+        getActivities()
     }, [])
 
     return (
         <View style={styles.defaultContainer}>
-            <BooksList data={books} authors={authors} images={images}/>
+            <ActivityList data={activities}/>
         </View>
     )
 }

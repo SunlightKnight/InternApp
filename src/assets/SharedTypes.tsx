@@ -26,3 +26,10 @@ export type CoverPhoto = {
     idBook: number,
     url: string,
 }
+
+export type Activity = {
+    id: 0,
+    title: string,
+    dueDate: string,
+    completed: boolean
+}

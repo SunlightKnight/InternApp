@@ -1,4 +1,4 @@
-import React, { Ref, useContext } from 'react';
+import React, { Ref, useContext, useEffect } from 'react';
 import { StyleSheet, View, Platform, Image, TouchableOpacity, BackHandler } from 'react-native';
 import IconTextReversed from '../components/IconTextReversed'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,25 +8,28 @@ import colors from '../styles/colors';
 import padding from '../styles/padding';
 import fontSize from '../styles/fontSize';
 import { HEADER_HEIGHT } from '../styles/styles';
-import { StackActions, useFocusEffect, useNavigation } from '@react-navigation/native';
+import { DrawerActions, StackActions, useFocusEffect, useNavigation } from '@react-navigation/native';
 import { AppContext } from '../utils/AppProvider/AppProvider';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 type CustomHeaderProps = {
-    navigation: any,
+    navigatorRef: any,
     showBack: boolean,
     showLogout: boolean,
 }
 
 export default function CustomHeader(props: CustomHeaderProps) {
+    const navigation = useNavigation()
     const appContext = useContext(AppContext)
 
     const backPress = () => {
-        props.navigation.current.canGoBack() ? props.navigation.current.dispatch(StackActions.pop(1)) : null
+        navigation.dispatch(DrawerActions.openDrawer())
     }
 
     const logout = () => {
         clearAsyncStorage()
-        props.navigation.current.dispatch(StackActions.popToTop())
+        appContext?.app.setUser({ userName: '', password: '' })
+        navigation.navigate('Onboarding', {screen: 'Login'}) // Ignore
     }
 
     const clearAsyncStorage = async () => {
@@ -37,6 +40,13 @@ export default function CustomHeader(props: CustomHeaderProps) {
             console.error('Error clearing AsyncStorage:', error);
         }
     };
+
+    const getPrevUser = async () => {
+        const jsonValue = await AsyncStorage.getItem('login');
+        console.log(jsonValue != null ? JSON.parse(jsonValue) : '')
+
+        jsonValue != null ? appContext?.app.setUser(JSON.parse(jsonValue)) : appContext?.app.setUser({userName: '', password: ''});
+    }
 
     useFocusEffect(
         React.useCallback(() => {
@@ -53,11 +63,15 @@ export default function CustomHeader(props: CustomHeaderProps) {
         }, [props.showBack])
     );
 
+    useEffect(() => {
+        getPrevUser()
+    }, [])
+
     return (
         <View style={styles.headerContainer}>
             {props.showBack ? (
                 <TouchableOpacity onPress={backPress} style={styles.backButtonContainer}>
-                    <Image source={images.icon_back} resizeMode="contain" style={styles.backButtonImage} />
+                    <Image source={images.burgerIcon} resizeMode="contain" style={styles.backButtonImage} />
                 </TouchableOpacity>
             ) : null}
 

@@ -40,5 +40,9 @@
     "entry_author": "Autore/i: ",
     "entry_description": "Descrizione",
     "search_bar_placeholder": "Cerca..."
+  },
+  "activity_screen" : {
+    "completed": "COMPLETATA",
+    "incomplete": "NON COMPLETATA"
   }
 }

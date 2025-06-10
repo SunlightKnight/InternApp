@@ -40,5 +40,9 @@
     "entry_author": "Author/s: ",
     "entry_description": "Description",
     "search_bar_placeholder": "Search..."
+  },
+  "activity_screen" : {
+    "completed": "COMPLETED",
+    "incomplete": "NOT COMPLETED"
   }
 }

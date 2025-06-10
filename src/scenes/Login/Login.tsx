@@ -65,7 +65,6 @@ function Login(props: LoginProps) {
         } else {
             appContext?.app.handleLoader(true)
             setTimeout(() => {
-                props.navigation.navigate('Landing')
                 appContext?.app.handleLoader(false)
             }, 100)
         }
@@ -134,12 +133,15 @@ function Login(props: LoginProps) {
 
     const savePrevUser = async (value: any) => {
         try {
-            appContext?.app.setUser(value)
             const jsonValue = JSON.stringify(value)
             await AsyncStorage.setItem('login', jsonValue)
         } catch (e) {
 
         }
+    }
+
+    const loginMove = () => {
+        props.navigation.navigate('Main', {screen: 'Landing'})
     }
 
     const findBiometricType = async () => {
@@ -184,8 +186,8 @@ function Login(props: LoginProps) {
 
                     appContext?.app.handleLoader(true)
                     setTimeout(() => {
-                        props.navigation.navigate('Landing')
                         appContext?.app.handleLoader(false)
+                        loginMove()
                     }, 100)
                 } else {
                     console.log('user cancelled biometric prompt')
@@ -228,6 +230,7 @@ function Login(props: LoginProps) {
             return
         }
 
+        appContext?.app.setUser(entry)
         savePrevUser(entry)
 
         setSignIn(false)
@@ -241,8 +244,8 @@ function Login(props: LoginProps) {
         } else {
             appContext?.app.handleLoader(true)
             setTimeout(() => {
-                props.navigation.navigate('Landing')
                 appContext?.app.handleLoader(false)
+                loginMove()
             }, 100)
         }
     }
