@@ -19,14 +19,14 @@ import Landing from './Main/Landing/Landing';
 import GenericListTest from './Main/Test/GenericListTest'
 import ProfileWindow from './Main/Test/ProfileWindow'
 import Login from './Main/Login/Login'
-import CustomHeader from '../components/Main/CustomHeader';
+import CustomHeader from '../components/Pets/CustomHeader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUsername } from '../utils/GlobalVariables';
 import APIList from './Main/Test/APIList';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import ActivityList from './Main/Test/ActivityList';
-import Inventory from './Pet/Inventory/Inventory'
 import Store from './Pet/Store/Store'
+import Cart from './Pet/Cart/Cart';
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -71,20 +71,20 @@ export default function AppFlowCoordinator() {
     }
 
     const pages: { [key: string]: any } = {
-        Inventory: {
-            component: Inventory,
-            parentProps: {},
-        },
         Store: {
             component: Store,
             parentProps: {}
         },
+        Cart: {
+            component: Cart,
+            parentProps: {}
+        }
     };
 
     return (
     <View style={{ width: "100%", height: "100%" }}>
         <Drawer.Navigator
-            initialRouteName={'Inventory'}
+            initialRouteName={'Store'}
             screenOptions={screenOptions}>
             {Object.keys(pages).map((key: string) => {
                 const page = pages[key];

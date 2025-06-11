@@ -3,7 +3,7 @@ import { throwError } from "./BackendError";
 import { useTranslation } from "react-i18next";
 import * as AppConfig from '../config/config';
 import BackendServiceInterface from "./BackendServiceInterface";
-import { Activity, Author, BookEntry, CoverPhoto, PetUser, User } from "../assets/SharedTypes";
+import { Activity, Author, BookEntry, CoverPhoto, Order, Pet, PetUser, User } from "../assets/SharedTypes";
 
 // Default timeout: after FETCH_TIMEOUT * 1000 (see line 278) the promise is automatically rejected.
 const FETCH_TIMEOUT = 30
@@ -303,6 +303,30 @@ const BackendServiceProvider = ({ children } : any) => {
        HTTPContentType.json
     )
   }
+  const findPetsByStatus = (status : string) : Promise<Array<Pet>> => {
+    return callJSON(
+       API_BASE_URL_PETS + `/pet/findByStatus?status=${[status]}`,
+       HTTPMethod.GET,
+       undefined,
+       HTTPContentType.json
+    )
+  }
+  const logoutPetUser = () : Promise<String> => {
+    return callJSON(
+       API_BASE_URL_PETS + `/user/logout`,
+       HTTPMethod.GET,
+       undefined,
+       HTTPContentType.json
+    )
+  }
+  const placeOrder = (orderToPost : Order) : Promise<Order> => {
+    return callJSON(
+       API_BASE_URL_PETS + `/store/order`,
+       HTTPMethod.POST,
+       orderToPost,
+       HTTPContentType.json
+    )
+  }
 
   return <BackendServiceContext.Provider value={{
     beService: {
@@ -313,7 +337,10 @@ const BackendServiceProvider = ({ children } : any) => {
       getActivities: getActivities,
       checkUser : checkUser,
       loginPetUser: loginPetUser,
-      createUser : createUser
+      createUser : createUser,
+      findPetsByStatus : findPetsByStatus,
+      logoutPetUser : logoutPetUser,
+      placeOrder : placeOrder
     }
   }}>
     {children}

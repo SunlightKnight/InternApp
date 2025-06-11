@@ -52,5 +52,10 @@
   "home_screen": {
     "mainApp": "Applicazione principale",
     "pets": "Gestione animali domestici"
+  },
+  "pets_cart_screen": {
+    "buy": "Procedi al pagamento",
+    "cancel_payment": "Annulla pagamento",
+    "confirm_payment": "Conferma pagamento"
   }
 }

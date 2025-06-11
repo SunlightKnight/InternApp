@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, FlatList, Text, View } from 'react-native';
 
-import colors from '../../styles/colors';
-import padding from '../../styles/padding';
-import fontSize from '../../styles/fontSize';
-import { Activity, Author, BookEntry, CoverPhoto } from '../../assets/SharedTypes';
+import colors from '../../../styles/colors.ts';
+import padding from '../../../styles/padding.ts';
+import fontSize from '../../../styles/fontSize.ts';
+import { Activity, Author, BookEntry, CoverPhoto, Pet } from '../../../assets/SharedTypes.tsx';
 import { TextInput } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
 import DropShadow from 'react-native-drop-shadow';
-import PetsInventoryEntry from './PetsInventoryEntry'
+import PetsInventoryEntry from './PetsInventoryEntry.tsx'
 
 type PetsInventoryProps = {
-    data: Activity[]
+    data: Pet[]
 }
 
 export default function ActivityList(props: PetsInventoryProps) {
     const { t } = useTranslation()
     const [searchText, setSearchText] = useState('')
 
-    const filteredData = props.data.filter((item) => item.title.toLowerCase().includes(searchText.toLowerCase()))
+    const filteredData = props.data ? props.data.filter((item) => item.name ? item.name.toLowerCase().includes(searchText.toLowerCase()) : null) : null
 
     return (
         <View style={{ width: "100%" }}>
@@ -29,7 +29,7 @@ export default function ActivityList(props: PetsInventoryProps) {
             </DropShadow>
             <View style={{ height: "90%" }}>
                 <FlatList style={styles.listContainer} data={filteredData} keyExtractor={(item) => String(item.id)} renderItem={({ item }) => (
-                    <PetsInventoryEntry entry={item}></PetsInventoryEntry>
+                    <PetsInventoryEntry entry={item} key={item.id}></PetsInventoryEntry>
                 )} numColumns={1} />
             </View>
         </View>

@@ -16,6 +16,34 @@ export type PetUser = {
     userStatus: number
 }
 
+export type Pet = {
+    id: number,
+    category: {
+      id: number,
+      name: string
+    },
+    name: string,
+    photoUrls: [
+      string
+    ],
+    tags: [
+      {
+        id: number,
+        name: string
+      }
+    ],
+    status: string
+}
+
+export type Order = {
+  id: number,
+  petId: number,
+  quantity: number,
+  shipDate: string,
+  status: string,
+  complete: boolean
+}
+
 export type BookEntry = {
     id: number,
     title: string,

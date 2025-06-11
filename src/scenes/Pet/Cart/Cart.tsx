@@ -12,45 +12,30 @@ import fontSize from '../../../styles/fontSize.ts';
 import generalStyles from '../../../styles/styles.ts'
 import { ScrollView } from 'react-native-gesture-handler';
 import ProfileWidget, { ProfileEntry } from '../../../components/Main/ProfileWidget.tsx';
-import { Activity, Author, BookEntry, CoverPhoto } from '../../../assets/SharedTypes.tsx';
+import { Activity, Author, BookEntry, CoverPhoto, Pet } from '../../../assets/SharedTypes.tsx';
 import BooksList from '../../../components/Main/BooksList/BooksList.tsx';
-import PetsInventoryList from '../../../components/Main/ActivityList/ActivityList.tsx';
+import PetsInventoryList from '../../../components/Pets/Inventory/PetsInventoryList.tsx'
+import PetsCartList from '../../../components/Pets/Cart/PetsCartList.tsx';
 
-interface InventoryProps {
+interface CartProps {
     navigation: any
 }
 
-function Inventory(props: InventoryProps) {
+function Cart(props: CartProps) {
     const appContext = useContext(AppContext)
     const backendContext = useContext(BackendServiceContext)
     const { t } = useTranslation()
-    const [activities, setActivities] = useState(Array<Activity>)
-
-    const getActivities = () => {
-        backendContext?.beService.getActivities()
-            .then((result) => {
-                console.log(result)
-                setActivities(result)
-            })
-            .catch((result) => {
-                getActivities()
-            })
-    }
-
-    useEffect(() => {
-        getActivities()
-    }, [])
 
     return (
         <View style={styles.defaultContainer}>
-            
+            <PetsCartList data={appContext?.app.cart as Pet[]}/>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     defaultContainer: {
-        backgroundColor: colors.primaryBackground,
+        backgroundColor: colors.petsPrimaryBackground,
 
         flexGrow: 1,
         alignItems: "center",
@@ -58,4 +43,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Inventory
+export default Cart

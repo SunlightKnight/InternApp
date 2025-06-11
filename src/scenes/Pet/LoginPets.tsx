@@ -34,6 +34,9 @@ function Login(props: LoginProps) {
     const [phone, setPhone] = useState('')
     const [signIn, setSignIn] = useState(false)
 
+    const retryTimeout = 10
+    var currLoginRetries = 0
+
     const prevUserHandle = async () => {
         const jsonValue = await AsyncStorage.getItem('petLogin');
         const user: PetUser = JSON.parse(jsonValue as string)
@@ -59,6 +62,8 @@ function Login(props: LoginProps) {
                     .then((result) => {
                         console.log(result)
                         appContext?.app.setPetUser(petUser)
+                        const jsonUser = JSON.stringify(petUser)
+                        AsyncStorage.setItem('petLogin', jsonUser)
                         setTimeout(() => {
                             appContext?.app.handleLoader(false)
                             loginMove()
@@ -69,6 +74,13 @@ function Login(props: LoginProps) {
                     })
             })
             ?.catch((result) => {
+                if (currLoginRetries >= retryTimeout) {
+                    appContext?.app.handleLoader(false)
+                    return
+                }
+
+                currLoginRetries++
+                console.log(currLoginRetries)
                 login()
             })
     }
@@ -126,7 +138,7 @@ function Login(props: LoginProps) {
                         <LabeledField placeholder={t('login_screen.login_insert_last_name')} onChangeText={setLastName} value={lastName} />
                         <LabeledField placeholder={t('login_screen.login_insert_email')} onChangeText={setEmail} value={email} />
                         <LabeledField placeholder={t('login_screen.login_insert_phone')} onChangeText={setPhone} value={phone} />
-                        <CustomButton text={t('login_screen.signin')} onPress={registerUser} />
+                        <CustomButton text={t('login_screen.signin')} onPress={registerUser} style={{ backgroundColor: colors.petsPrimary }} />
                         <TouchableOpacity onPress={() => (setSignIn(false), setWarning(false))}>
                             <Text style={styles.signLogInPrompt}>{t('login_screen.login_prompt')}</Text>
                         </TouchableOpacity>
@@ -136,7 +148,7 @@ function Login(props: LoginProps) {
                         <Text style={styles.title}>{t("login_screen.login_title")}</Text>
                         <LabeledField warningText={warning ? t('login_screen.login_incorrect_username') : undefined} placeholder={t('login_screen.login_insert_username')} onChangeText={setUsername} value={username} />
                         <LabeledField warningText={warning ? t('login_screen.login_incorrect_password') : undefined} placeholder={t('login_screen.login_insert_password')} onChangeText={setPassword} value={password} secureTextEntry={true} />
-                        <CustomButton text={t('login_screen.login')} onPress={login} />
+                        <CustomButton text={t('login_screen.login')} onPress={login} style={{ backgroundColor: colors.petsPrimary }} />
                         <TouchableOpacity onPress={() => (setSignIn(true), setWarning(false))}>
                             <Text style={styles.signLogInPrompt}>{t('login_screen.signin_prompt')}</Text>
                         </TouchableOpacity>
@@ -154,7 +166,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
 
-        backgroundColor: colors.primaryBackground
+        backgroundColor: colors.petsPrimaryBackground
     },
     loginContainerShadow: {
         flex: 0,
@@ -182,7 +194,7 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        color: colors.primary,
+        color: colors.petsPrimary,
 
         margin: 10,
 
@@ -190,7 +202,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     signLogInPrompt: {
-        color: colors.primary,
+        color: colors.petsPrimary,
 
         fontWeight: 'bold'
     }
