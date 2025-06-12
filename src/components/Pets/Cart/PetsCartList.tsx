@@ -13,6 +13,7 @@ import { Image } from 'react-native-reanimated/lib/typescript/Animated';
 import { CreditCardFormData, CreditCardFormField, CreditCardInput, CreditCardView } from 'react-native-credit-card-input';
 import { AppContext } from '../../../utils/AppProvider/AppProvider.tsx';
 import { BackendServiceContext } from '../../../services/BackedServiceProvider.tsx';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type PetsInventoryProps = {
     data: Pet[]
@@ -33,29 +34,59 @@ export default function ActivityList(props: PetsInventoryProps) {
 
     const confirmPayment = () => {
         appContext?.app.handleLoader(true)
+        setModalVisible(false)
 
         if (!appContext?.app.cart.length) { return }
+
+        var tempOrderArray1 : Order[] = []
 
         for (let i = 0; i < appContext?.app.cart.length; i++) {
             var currDate = new Date()
             currDate.setDate(currDate.getDate() + 7)
             const newOrder: Order = {
-                id: Math.floor((Math.random() * 10) + 1),
+                id: Math.floor((Math.random() * 10000000) + 1),
                 petId: appContext?.app.cart[i].id,
                 quantity: 1,
-                shipDate: currDate.toString(),
+                shipDate: currDate.toISOString(),
                 status: "placed",
                 complete: false
             }
             backendContext?.beService.placeOrder(newOrder)
+            newOrder.username = appContext?.app.petUser ? appContext?.app.petUser.username : ''
+            tempOrderArray1.push(newOrder)
         }
 
-        appContext?.app.setCart([])
-        setModalVisible(false)
+        getSavedOrders()
+            .then((result) => {
+                if(!result) {result = []}
+
+                var finalTempOrderArray = result.slice()
+
+                for (let i = 0; i < tempOrderArray1.length; i++) {
+                    finalTempOrderArray.push(tempOrderArray1[i])
+                }
+
+                console.log(finalTempOrderArray)
+
+                setSavedOrders(finalTempOrderArray)
+            })
+            .catch((result) => {
+                console.log("Couldn't resolve saved orders promise")
+            })
 
         setTimeout(() => {
+            appContext?.app.setCart([])
             appContext?.app.handleLoader(false)
         }, 100)
+    }
+
+    const getSavedOrders = async () => {
+        const jsonValue = await AsyncStorage.getItem('orderHistory');
+        return jsonValue ? JSON.parse(jsonValue) as Order[] : null
+    }
+
+    const setSavedOrders = async (newOrders: Order[]) => {
+        const jsonValue = await AsyncStorage.setItem('orderHistory', JSON.stringify(newOrders));
     }
 
     return (
@@ -82,11 +113,18 @@ export default function ActivityList(props: PetsInventoryProps) {
                     <TextInput style={styles.searchBar} placeholder={t('books_list.search_bar_placeholder')} placeholderTextColor={colors.blackOpacity25} onChangeText={setSearchText} />
                 </View>
             </DropShadow>
-            <View style={{ height: "83%" }}>
-                <FlatList style={styles.listContainer} data={filteredData} keyExtractor={(item) => String(item.id)} renderItem={({ item }) => (
-                    <PetsCartEntry entry={item} key={item.id}></PetsCartEntry>
-                )} numColumns={1} />
-            </View>
+            {appContext?.app.cart && appContext?.app.cart.length > 0 ? (
+                <View style={{ height: "83%" }}>
+                    <FlatList style={styles.listContainer} data={filteredData} keyExtractor={(item) => String(item.id)} renderItem={({ item }) => (
+                        <PetsCartEntry entry={item} key={item.id}></PetsCartEntry>
+                    )} numColumns={1} />
+                </View>
+            ) : (
+                <View style={{ height: '83%', justifyContent: 'center' }}>
+                    {/* Tanto per */}
+                    <Text style={styles.easterEgg}>{t("easter_eggs.so_long")}</Text>
+                </View>
+            )}
             {appContext?.app.cart && appContext?.app.cart.length > 0 ? (
                 <DropShadow style={styles.searchBarContainerShadow}>
                     <TouchableOpacity style={styles.buyButtonContainer} onPress={() => { setModalVisible(!modalVisible) }}>
@@ -122,7 +160,7 @@ const styles = StyleSheet.create({
     creditCardContainer: {
         backgroundColor: colors.white,
 
-        marginTop: "30%",
+        marginTop: "35%",
 
         width: "100%",
         height: "100%",
@@ -210,5 +248,12 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
 
         borderRadius: 5
+    },
+    easterEgg: {
+        color: colors.petsEasterEgg,
+        alignSelf: 'center',
+        textAlign: 'center',
+
+        fontSize: 35,
     }
 });

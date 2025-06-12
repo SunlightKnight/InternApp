@@ -15,6 +15,7 @@ import ProfileWidget, { ProfileEntry } from '../../../components/Main/ProfileWid
 import { Activity, Author, BookEntry, CoverPhoto, Pet } from '../../../assets/SharedTypes.tsx';
 import BooksList from '../../../components/Main/BooksList/BooksList.tsx';
 import PetsInventoryList from '../../../components/Pets/Inventory/PetsInventoryList.tsx'
+import PetsHistoryList from '../../../components/Pets/History/PetsHistoryList.tsx';
 
 interface InventoryProps {
     navigation: any
@@ -28,7 +29,7 @@ function Inventory(props: InventoryProps) {
 
     return (
         <View style={styles.defaultContainer}>
-            <PetsInventoryList/>
+            <PetsHistoryList/>
         </View>
     )
 }

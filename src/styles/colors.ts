@@ -11,5 +11,6 @@ export default {
   petsPrimary: "#6cbf7c",
   primaryBackground: '#e0eeff',
   petsPrimaryBackground: "#e0ffe1",
+  petsEasterEgg: "#cfead0",
   secondary: "#608EBE"
 }

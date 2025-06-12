@@ -53,9 +53,21 @@
     "mainApp": "Main application",
     "pets": "Pets handler"
   },
+  "pets_inventory_screen": {
+    "add_title": "Add pet",
+    "add_placeholder": "Insert pet's name",
+    "add_sell": "Put on sale"
+  },
   "pets_cart_screen": {
     "buy": "Procedi al pagamento",
     "cancel_payment": "Annulla pagamento",
     "confirm_payment": "Conferma pagamento"
+  },
+  "pets_history_screen": {
+    "pets_delivery_date": "Will arrive by"
+  },
+  "easter_eggs": {
+    "so_long": "So long and\nthanks for all the fish!",
+    "nobody_here": "Ain't nobody here but\nus chickens!"
   }
 }

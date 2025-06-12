@@ -53,9 +53,21 @@
     "mainApp": "Applicazione principale",
     "pets": "Gestione animali domestici"
   },
+  "pets_inventory_screen": {
+    "add_title": "Aggiungi animale domestico",
+    "add_placeholder": "Inserisci nome dell'animale",
+    "add_sell": "Metti in vendita"
+  },
   "pets_cart_screen": {
     "buy": "Procedi al pagamento",
     "cancel_payment": "Annulla pagamento",
     "confirm_payment": "Conferma pagamento"
+  },
+  "pets_history_screen": {
+    "pets_delivery_date": "Data di consegna:"
+  },
+  "easter_eggs": {
+    "so_long": "Addio e grazie\nper tutto il pesce!",
+    "nobody_here": "Ci sta nessuno qui tranne noi galline!"
   }
 }

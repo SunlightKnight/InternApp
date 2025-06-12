@@ -13,4 +13,5 @@ export default interface BackendServiceInterface {
   findPetsByStatus: (status : string) => Promise<Array<Pet>>
   logoutPetUser: () => Promise<String>
   placeOrder: (orderToBePlace : Order) => Promise<Order>
+  addPet: (petToAdd : Pet) => Promise<String>
 }

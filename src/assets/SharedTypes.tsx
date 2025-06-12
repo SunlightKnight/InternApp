@@ -41,7 +41,8 @@ export type Order = {
   quantity: number,
   shipDate: string,
   status: string,
-  complete: boolean
+  complete: boolean,
+  username?: string
 }
 
 export type BookEntry = {

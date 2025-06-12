@@ -327,6 +327,14 @@ const BackendServiceProvider = ({ children } : any) => {
        HTTPContentType.json
     )
   }
+  const addPet = (petToAdd : Pet) : Promise<String> => {
+    return callJSON(
+       API_BASE_URL_PETS + `/pet`,
+       HTTPMethod.POST,
+       petToAdd,
+       HTTPContentType.json
+    )
+  }
 
   return <BackendServiceContext.Provider value={{
     beService: {
@@ -340,7 +348,8 @@ const BackendServiceProvider = ({ children } : any) => {
       createUser : createUser,
       findPetsByStatus : findPetsByStatus,
       logoutPetUser : logoutPetUser,
-      placeOrder : placeOrder
+      placeOrder : placeOrder,
+      addPet: addPet
     }
   }}>
     {children}

@@ -27,6 +27,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import ActivityList from './Main/Test/ActivityList';
 import Store from './Pet/Store/Store'
 import Cart from './Pet/Cart/Cart';
+import History from './Pet/History/History';
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -77,6 +78,10 @@ export default function AppFlowCoordinator() {
         },
         Cart: {
             component: Cart,
+            parentProps: {}
+        },
+        History: {
+            component: History,
             parentProps: {}
         }
     };
