@@ -11,7 +11,7 @@ import padding from '../../../styles/padding.ts';
 import fontSize from '../../../styles/fontSize.ts';
 import generalStyles from '../../../styles/styles.ts'
 import { ScrollView } from 'react-native-gesture-handler';
-import ProfileWidget, { ProfileEntry } from '../../../components/Main/ProfileWidget.tsx';
+import ProfileWidget, { ProfileEntry } from '../../../components/Main/Profile/ProfileWidget.tsx';
 import { Activity, Author, BookEntry, CoverPhoto } from '../../../assets/SharedTypes.tsx';
 import BooksList from '../../../components/Main/BooksList/BooksList.tsx';
 import ActivityList from '../../../components/Main/ActivityList/ActivityList.tsx';

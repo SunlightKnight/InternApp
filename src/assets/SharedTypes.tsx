@@ -5,6 +5,18 @@ export type User = {
     biometricEnabled?: boolean
 }
 
+export type Profile = {
+  id: string
+  name: string
+  email: string
+  imageURL?: string // Directory dell'immagine di profilo
+  title: string // Titolo aziendale
+  quote?: string
+  quoteAuthor?: string
+  biography?: string
+  cellNumber: string
+}
+
 export type PetUser = {
     id: number,
     username: string,

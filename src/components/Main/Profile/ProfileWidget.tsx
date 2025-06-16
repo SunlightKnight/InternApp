@@ -1,18 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import DropShadow from 'react-native-drop-shadow';
 import { StyleSheet, Text, View, Dimensions, Image, Platform, UIManager, LayoutAnimation, Animated, useAnimatedValue, Linking } from 'react-native';
-import * as images from '../../assets/index.ts';
-import IconText from './IconText.tsx';
+import * as images from '../../../assets/index.ts';
+import IconText from '../IconText.tsx';
 
-import colors from '../../styles/colors.ts';
-import padding from '../../styles/padding.ts';
-import fontSize from '../../styles/fontSize.ts';
+import colors from '../../../styles/colors.ts';
+import padding from '../../../styles/padding.ts';
+import fontSize from '../../../styles/fontSize.ts';
 import { useLocale } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { AnimatedView } from 'react-native-reanimated/lib/typescript/component/View';
+import { Profile } from '../../../assets/SharedTypes.tsx';
 
 type ProfileWidgetProps = {
-  data: ProfileEntry
+  data: Profile
 }
 
 export default function ProfileWidget(props: ProfileWidgetProps) {
@@ -91,29 +92,11 @@ export default function ProfileWidget(props: ProfileWidgetProps) {
   );
 }
 
-export type ProfileEntry = {
-  name: string
-  email: string
-  imageURL?: string // Directory dell'immagine di profilo
-  title: string // Titolo aziendale
-  quote?: string
-  quoteAuthor?: string
-  biography?: string
-  cellNumber: number
-  certifications? : CertificationEntry[]
-}
-
-export type CertificationEntry = {
-
-}
-
 const styles = StyleSheet.create({
   bottomContainerShadow: {
     flex: 0,
     flexGrow: 0,
     width: "100%",
-
-    margin: 10,
 
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 0 },
@@ -126,16 +109,15 @@ const styles = StyleSheet.create({
 
     backgroundColor: colors.white,
 
-    width: "auto",
+    width: "100%",
     height: "auto",
     minHeight: 150,
 
-    margin: padding.half,
-    padding: padding.half,
-
     overflow : "hidden",
 
-    borderRadius: 20,
+    marginVertical: padding.half,
+    padding: padding.half,
+    borderRadius: 5,
   },
   mailPhoneContainer: {
     marginTop: 8,

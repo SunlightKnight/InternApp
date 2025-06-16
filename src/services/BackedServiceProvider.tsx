@@ -3,7 +3,7 @@ import { throwError } from "./BackendError";
 import { useTranslation } from "react-i18next";
 import * as AppConfig from '../config/config';
 import BackendServiceInterface from "./BackendServiceInterface";
-import { Activity, Author, BookEntry, CoverPhoto, Order, Pet, PetUser, User } from "../assets/SharedTypes";
+import { Activity, Author, BookEntry, CoverPhoto, Order, Pet, PetUser, Profile, User } from "../assets/SharedTypes";
 
 // Default timeout: after FETCH_TIMEOUT * 1000 (see line 278) the promise is automatically rejected.
 const FETCH_TIMEOUT = 30
@@ -255,6 +255,15 @@ const BackendServiceProvider = ({ children }: any) => {
     )
   }
 
+  const getProfiles = () : Promise<Profile[]> => {
+    return callJSON(
+      API_BASE_URL + `/profiles`,
+      HTTPMethod.GET,
+      undefined,
+      HTTPContentType.json
+    )
+  }
+
   const getBooks = (): Promise<BookEntry[]> => {
     return callJSON(
       API_BASE_URL + `/api/v1/Books`,
@@ -356,6 +365,7 @@ const BackendServiceProvider = ({ children }: any) => {
     beService: {
       getUsers: getUsers,
       registerUser: registerUser,
+      getProfiles: getProfiles,
       getBooks: getBooks,
       getAuthors: getAuthors,
       getImages: getImages,
