@@ -26,6 +26,7 @@ export default function PetsInventoryAdd(props: PetsInventoryProps) {
     const backendContext = useContext(BackendServiceContext)
     const { t } = useTranslation()
     const [petName, setPetName] = useState('')
+    const [petImageURL, setPetImageURL] = useState('')
     const [modalVisible, setModalVisible] = useState(false)
 
     const createPet = () => {
@@ -37,7 +38,7 @@ export default function PetsInventoryAdd(props: PetsInventoryProps) {
             },
             name: petName,
             photoUrls: [
-                'string'
+                petImageURL
             ],
             tags: [
                 {
@@ -64,6 +65,7 @@ export default function PetsInventoryAdd(props: PetsInventoryProps) {
                 <View style={styles.addMenuContainer}>
                     <Text style={styles.addTitle}>{t('pets_inventory_screen.add_title')}</Text>
                     <TextInput style={styles.addTextField} onChangeText={setPetName} placeholderTextColor={colors.blackOpacity25} placeholder={t('pets_inventory_screen.add_placeholder')}></TextInput>
+                    <TextInput style={styles.addTextField} onChangeText={setPetImageURL} placeholderTextColor={colors.blackOpacity25} placeholder={t('pets_inventory_screen.add_image_placeholder')}></TextInput>
                     <TouchableOpacity onPress={() => createPet()}>
                         <Text style={styles.sellButton}>{t('pets_inventory_screen.add_sell')}</Text>
                     </TouchableOpacity>

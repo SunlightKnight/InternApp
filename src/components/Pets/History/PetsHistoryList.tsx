@@ -68,7 +68,7 @@ export default function PetsHistoryList(props: PetsHistoryListProps) {
                     <TextInput style={styles.searchBar} placeholder={t('books_list.search_bar_placeholder')} placeholderTextColor={colors.blackOpacity25} onChangeText={setSearchText} />
                 </View>
             </DropShadow>
-            <View style={{ height: "83%" }}>
+            <View style={{ height: "90%" }}>
                 <FlatList style={styles.listContainer} refreshing={refreshing} onRefresh={() => dataRefresh()} data={filteredData} keyExtractor={(item) => String(item.id)} renderItem={({ item }) => (
                     <PetsHistoryEntry entry={item} key={item.id} petName={availablePets?.find((item1) => {return item1.id == item.petId})?.name}></PetsHistoryEntry>
                 )} numColumns={1} />

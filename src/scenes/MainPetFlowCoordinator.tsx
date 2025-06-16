@@ -28,6 +28,7 @@ import ActivityList from './Main/Test/ActivityList';
 import Store from './Pet/Store/Store'
 import Cart from './Pet/Cart/Cart';
 import History from './Pet/History/History';
+import Settings from './Pet/User/Settings';
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -82,6 +83,10 @@ export default function AppFlowCoordinator() {
         },
         History: {
             component: History,
+            parentProps: {}
+        },
+        Settings : {
+            component: Settings,
             parentProps: {}
         }
     };

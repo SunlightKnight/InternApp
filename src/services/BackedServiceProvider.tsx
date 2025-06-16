@@ -12,7 +12,7 @@ const API_BASE_URL: string = AppConfig.API_ENDPOINT
 const API_BASE_URL_PETS: string = AppConfig.PETS_API_ENDPOINT
 
 export interface IJSON {
-  [key: string]: any; 
+  [key: string]: any;
 }
 
 /** Request methods. For more info: https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods */
@@ -56,7 +56,7 @@ export const BackendServiceContext = createContext<BackendServiceContextType | n
  * @param children - Components tree wrapped by BackendServiceProvider. 
  * @returns BackendServiceProvider component with exposed functionalities.
  */
-const BackendServiceProvider = ({ children } : any) => {
+const BackendServiceProvider = ({ children }: any) => {
   const { t } = useTranslation()
 
   /**
@@ -106,9 +106,9 @@ const BackendServiceProvider = ({ children } : any) => {
         error.message || "empty error message"
       );
       if (error && error.message && error.message !== "Failed to fetch") {
-        throwError({status: error.status || 500, message: error.message, messageKey: error.messageKey})
+        throwError({ status: error.status || 500, message: error.message, messageKey: error.messageKey })
       } else {
-        throwError({status: error.status || 500, message: t("errors.generic"), messageKey: "error.fetch"})
+        throwError({ status: error.status || 500, message: t("errors.generic"), messageKey: "error.fetch" })
       }
     }
   }
@@ -126,7 +126,7 @@ const BackendServiceProvider = ({ children } : any) => {
   ): Promise<any> => {
     console.log("*** BackendService - Response -> ", response)
     try {
-      if (response.status !== 200) {
+      if (response.status !== 200 && response.status !== 201 && response.status !== 202) {
         if (response.status === 401) {
           throwError({
             status: 401,
@@ -147,7 +147,7 @@ const BackendServiceProvider = ({ children } : any) => {
           return;
         }
         let contentType = response.headers.get('Content-Type');
-  
+
         if (contentType !== null) {
           contentType = contentType.split(';')[0]; // ignore things like "...;charset=..."
         }
@@ -186,15 +186,15 @@ const BackendServiceProvider = ({ children } : any) => {
               messageKey: 'invalid_content_type',
             })
         }
-      } 
+      }
     } catch (error: any) {
       if (error == 401) {
         throw error;
       } else {
         console.log(
           '*** BackendService:manageResponse: ' +
-            response.url +
-            ': got error => ',
+          response.url +
+          ': got error => ',
           error.message,
         );
         throw error
@@ -222,7 +222,7 @@ const BackendServiceProvider = ({ children } : any) => {
       fetch(url, options),
       new Promise((_, reject) =>
         setTimeout(
-          () => reject({status: 408, message: t("errors.timeout"), messageKey: 'timeout'}),
+          () => reject({ status: 408, message: t("errors.timeout"), messageKey: 'timeout' }),
           timeout * 1000,
         ),
       ),
@@ -238,117 +238,135 @@ const BackendServiceProvider = ({ children } : any) => {
   //   )
   // } 
 
-  const getUsers = () : Promise<User[]> => {
+  const getUsers = (): Promise<User[]> => {
     return callJSON(
-       API_BASE_URL + `/api/v1/Users`,
-       HTTPMethod.GET,
-       undefined,
-       HTTPContentType.json
+      API_BASE_URL + `/users`,
+      HTTPMethod.GET,
+      undefined,
+      HTTPContentType.json
+    )
+  }
+  const registerUser = (user: User): Promise<String> => {
+    return callJSON(
+      API_BASE_URL + `/users`,
+      HTTPMethod.POST,
+      user,
+      HTTPContentType.json
     )
   }
 
-  const getBooks = () : Promise<BookEntry[]> => {
+  const getBooks = (): Promise<BookEntry[]> => {
     return callJSON(
-       API_BASE_URL + `/api/v1/Books`,
-       HTTPMethod.GET,
-       undefined,
-       HTTPContentType.json
+      API_BASE_URL + `/api/v1/Books`,
+      HTTPMethod.GET,
+      undefined,
+      HTTPContentType.json
     )
   }
-  const getAuthors = () : Promise<Author[]> => {
+  const getAuthors = (): Promise<Author[]> => {
     return callJSON(
-       API_BASE_URL + `/api/v1/Authors`,
-       HTTPMethod.GET,
-       undefined,
-       HTTPContentType.json
+      API_BASE_URL + `/api/v1/Authors`,
+      HTTPMethod.GET,
+      undefined,
+      HTTPContentType.json
     )
   }
-  const getImages = () : Promise<CoverPhoto[]> => {
+  const getImages = (): Promise<CoverPhoto[]> => {
     return callJSON(
-       API_BASE_URL + `/api/v1/CoverPhotos`,
-       HTTPMethod.GET,
-       undefined,
-       HTTPContentType.json
+      API_BASE_URL + `/api/v1/CoverPhotos`,
+      HTTPMethod.GET,
+      undefined,
+      HTTPContentType.json
     )
   }
-  const getActivities = () : Promise<Activity[]> => {
+  const getActivities = (): Promise<Activity[]> => {
     return callJSON(
-       API_BASE_URL + `/api/v1/Activities`,
-       HTTPMethod.GET,
-       undefined,
-       HTTPContentType.json
+      API_BASE_URL + `/api/v1/Activities`,
+      HTTPMethod.GET,
+      undefined,
+      HTTPContentType.json
     )
   }
-  const loginPetUser = (username : string, password : string) : Promise<String> => {
+  const loginPetUser = (username: string, password: string): Promise<String> => {
     return callJSON(
-       API_BASE_URL_PETS + `/user/login?username=${username}&password=${password}`,
-       HTTPMethod.GET,
-       undefined,
-       HTTPContentType.json
+      API_BASE_URL_PETS + `/user/login?username=${username}&password=${password}`,
+      HTTPMethod.GET,
+      undefined,
+      HTTPContentType.json
     )
   }
-  const checkUser = (username : string) : Promise<PetUser> => {
+  const checkUser = (username: string): Promise<PetUser> => {
     return callJSON(
-       API_BASE_URL_PETS + `/user/${username}`,
-       HTTPMethod.GET,
-       undefined,
-       HTTPContentType.json
+      API_BASE_URL_PETS + `/user/${username}`,
+      HTTPMethod.GET,
+      undefined,
+      HTTPContentType.json
     )
   }
-  const createUser = (user : PetUser) : Promise<string> => {
+  const createUser = (user: PetUser): Promise<string> => {
     return callJSON(
-       API_BASE_URL_PETS + `/user`,
-       HTTPMethod.POST,
-       user,
-       HTTPContentType.json
+      API_BASE_URL_PETS + `/user`,
+      HTTPMethod.POST,
+      user,
+      HTTPContentType.json
     )
   }
-  const findPetsByStatus = (status : string) : Promise<Array<Pet>> => {
+  const deleteUser = (username: string): Promise<string> => {
     return callJSON(
-       API_BASE_URL_PETS + `/pet/findByStatus?status=${[status]}`,
-       HTTPMethod.GET,
-       undefined,
-       HTTPContentType.json
+      API_BASE_URL_PETS + `/user/${username}`,
+      HTTPMethod.DELETE,
+      undefined,
+      HTTPContentType.json
     )
   }
-  const logoutPetUser = () : Promise<String> => {
+  const findPetsByStatus = (status: string): Promise<Array<Pet>> => {
     return callJSON(
-       API_BASE_URL_PETS + `/user/logout`,
-       HTTPMethod.GET,
-       undefined,
-       HTTPContentType.json
+      API_BASE_URL_PETS + `/pet/findByStatus?status=${[status]}`,
+      HTTPMethod.GET,
+      undefined,
+      HTTPContentType.json
     )
   }
-  const placeOrder = (orderToPost : Order) : Promise<Order> => {
+  const logoutPetUser = (): Promise<String> => {
     return callJSON(
-       API_BASE_URL_PETS + `/store/order`,
-       HTTPMethod.POST,
-       orderToPost,
-       HTTPContentType.json
+      API_BASE_URL_PETS + `/user/logout`,
+      HTTPMethod.GET,
+      undefined,
+      HTTPContentType.json
     )
   }
-  const addPet = (petToAdd : Pet) : Promise<String> => {
+  const placeOrder = (orderToPost: Order): Promise<Order> => {
     return callJSON(
-       API_BASE_URL_PETS + `/pet`,
-       HTTPMethod.POST,
-       petToAdd,
-       HTTPContentType.json
+      API_BASE_URL_PETS + `/store/order`,
+      HTTPMethod.POST,
+      orderToPost,
+      HTTPContentType.json
+    )
+  }
+  const addPet = (petToAdd: Pet): Promise<String> => {
+    return callJSON(
+      API_BASE_URL_PETS + `/pet`,
+      HTTPMethod.POST,
+      petToAdd,
+      HTTPContentType.json
     )
   }
 
   return <BackendServiceContext.Provider value={{
     beService: {
-      getUsers : getUsers,
-      getBooks : getBooks,
-      getAuthors : getAuthors,
-      getImages : getImages,
+      getUsers: getUsers,
+      registerUser: registerUser,
+      getBooks: getBooks,
+      getAuthors: getAuthors,
+      getImages: getImages,
       getActivities: getActivities,
-      checkUser : checkUser,
+      checkUser: checkUser,
       loginPetUser: loginPetUser,
-      createUser : createUser,
-      findPetsByStatus : findPetsByStatus,
-      logoutPetUser : logoutPetUser,
-      placeOrder : placeOrder,
+      createUser: createUser,
+      deleteUser: deleteUser,
+      findPetsByStatus: findPetsByStatus,
+      logoutPetUser: logoutPetUser,
+      placeOrder: placeOrder,
       addPet: addPet
     }
   }}>

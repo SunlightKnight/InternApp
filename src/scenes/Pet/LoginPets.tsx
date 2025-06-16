@@ -75,6 +75,7 @@ function Login(props: LoginProps) {
             })
             ?.catch((result) => {
                 if (currLoginRetries >= retryTimeout) {
+                    currLoginRetries = 0
                     appContext?.app.handleLoader(false)
                     return
                 }
@@ -89,6 +90,7 @@ function Login(props: LoginProps) {
         console.log(username, password)
         appContext?.app.handleLoader(true)
         if (username == '' || password == '') {
+            appContext?.app.handleLoader(false)
             return;
         }
 
@@ -113,6 +115,13 @@ function Login(props: LoginProps) {
                 appContext?.app.handleLoader(false)
             })
             .catch((result) => {
+                if (currLoginRetries >= retryTimeout) {
+                    currLoginRetries = 0
+                    appContext?.app.handleLoader(false)
+                    return
+                }
+
+                currLoginRetries++
                 registerUser()
             })
     }

@@ -35,9 +35,13 @@ export default function CustomHeader(props: CustomHeaderProps) {
         navigation.navigate('OnboardingPets', {screen: 'Login'}) // Ignore
     }
 
+    const settingsPress = () => {
+        navigation.navigate('MainPets', {screen: 'Settings'}) // Ignore
+    }
+
     const clearAsyncStorage = async () => {
         try {
-            await AsyncStorage.removeItem('login');
+            await AsyncStorage.removeItem('petLogin');
             console.log('AsyncStorage cleared successfully!');
         } catch (error) {
             console.error('Error clearing AsyncStorage:', error);
@@ -55,7 +59,7 @@ export default function CustomHeader(props: CustomHeaderProps) {
             {props.showLogout ? (
                 <View>
                     <IconTextReversed onPress={logout} imageSrc={images.logout} text={appContext?.app.petUser ? appContext?.app.petUser.username as string : ''} textSize={fontSize.big} color={colors.white} style={styles.logoutContainer} />
-                    <TouchableOpacity onPress={backPress} style={styles.optionsContainer}>
+                    <TouchableOpacity onPress={settingsPress} style={styles.optionsContainer}>
                         <Image source={images.settings} resizeMode="contain" style={styles.backButtonImage} />
                     </TouchableOpacity>
                 </View>

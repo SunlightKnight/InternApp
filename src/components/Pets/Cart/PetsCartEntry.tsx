@@ -32,11 +32,14 @@ export default function ActivityListEntry(props: ActivityListEntryProps) {
         <DropShadow style={styles.mainContainerShadow}>
             <View style={styles.mainContainer}>
                 <View style={styles.removeContainer}>
-                    <TouchableOpacity onPress={onRemovePress}>
+                    <TouchableOpacity style={styles.removeTouchable} onPress={onRemovePress}>
                         <Image style={styles.buyIcon} source={images.incomplete} />
                     </TouchableOpacity>
                 </View>
                 <View>
+                    <Image style={styles.petImage} src={props.entry.photoUrls && props.entry.photoUrls[0] && props.entry.photoUrls[0] != 'string' ? props.entry.photoUrls[0] : 'https://tse2.mm.bing.net/th/id/OIP.QPfFbw4hKZpiL-s2YUdrpAAAAA?rs=1&pid=ImgDetMain'} />
+                </View>
+                <View style={{marginLeft: 10}}>
                     <Text style={styles.title}>{props.entry.name}</Text>
                     <Text style={styles.author}>Qt: 1</Text>
                 </View>
@@ -47,6 +50,7 @@ export default function ActivityListEntry(props: ActivityListEntryProps) {
 
 const styles = StyleSheet.create({
     mainContainer: {
+        flexDirection: 'row',
         backgroundColor: colors.white,
 
         marginVertical: padding.half,
@@ -65,14 +69,19 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
     },
     removeContainer: {
-        backgroundColor: colors.red,
-
         position: 'absolute',
-        alignSelf: 'flex-end',
         zIndex: 1,
 
         margin: padding.half,
-        padding: 2,
+
+        width: '100%',
+    },
+    removeTouchable: {
+        backgroundColor: colors.red,
+
+        alignSelf: 'flex-end',
+
+        padding: 3,
 
         borderRadius: 200,
         borderWidth: 2,
@@ -100,5 +109,13 @@ const styles = StyleSheet.create({
 
         width: 25,
         height: 25,
+    },
+    petImage: {
+        height: 60,
+        aspectRatio: 1,
+
+        borderColor: colors.petsPrimary,
+        borderWidth: 2,
+        borderRadius: 3
     }
 });

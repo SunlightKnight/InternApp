@@ -35,7 +35,7 @@ export default function ActivityListEntry(props: ActivityListEntryProps) {
             appContext?.app.setCart(tempArray)
         } else {
             setInCart(true)
-            
+
             var tempArray = appContext?.app.cart.slice() as Pet[]
             tempArray.push(props.entry)
 
@@ -44,7 +44,7 @@ export default function ActivityListEntry(props: ActivityListEntryProps) {
     }
 
     const onCartUpdate = () => {
-        if(appContext?.app.cart.filter((item) => item.id == props.entry.id).length == 0) {
+        if (appContext?.app.cart.filter((item) => item.id == props.entry.id).length == 0) {
             setInCart(false)
         }
     }
@@ -57,11 +57,14 @@ export default function ActivityListEntry(props: ActivityListEntryProps) {
         <DropShadow style={styles.mainContainerShadow}>
             <View style={styles.mainContainer}>
                 <View style={styles.buyContainer}>
-                    <TouchableOpacity onPress={onCartPress}>
+                    <TouchableOpacity style={styles.buyTouchable} onPress={onCartPress}>
                         <Image style={styles.buyIcon} source={inCart ? images.completed : images.shoppingCart} />
                     </TouchableOpacity>
                 </View>
                 <View>
+                    <Image style={styles.petImage} src={props.entry.photoUrls && props.entry.photoUrls[0] && props.entry.photoUrls[0] != 'string' ? props.entry.photoUrls[0] : 'https://tse2.mm.bing.net/th/id/OIP.QPfFbw4hKZpiL-s2YUdrpAAAAA?rs=1&pid=ImgDetMain'} />
+                </View>
+                <View style={{ marginLeft: 10 }}>
                     <Text style={styles.title}>{props.entry.name}</Text>
                     <Text style={styles.author}>{props.entry.status}</Text>
                 </View>
@@ -73,6 +76,8 @@ export default function ActivityListEntry(props: ActivityListEntryProps) {
 const styles = StyleSheet.create({
     mainContainer: {
         backgroundColor: colors.white,
+
+        flexDirection: 'row',
 
         marginVertical: padding.half,
         padding: padding.half,
@@ -90,15 +95,22 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
     },
     buyContainer: {
-        backgroundColor: colors.petsPrimary,
+        flexDirection: 'column',
 
         position: 'absolute',
-        alignSelf: 'flex-end',
 
         margin: padding.half,
-        padding: 2,
+
+        width: "100%",
 
         zIndex: 1,
+    },
+    buyTouchable: {
+        backgroundColor: colors.petsPrimary,
+
+        alignSelf: 'flex-end',
+
+        padding: 3,
 
         borderRadius: 200,
         borderWidth: 2,
@@ -126,5 +138,13 @@ const styles = StyleSheet.create({
 
         width: 25,
         height: 25,
+    },
+    petImage: {
+        height: 60,
+        aspectRatio: 1,
+
+        borderColor: colors.petsPrimary,
+        borderWidth: 2,
+        borderRadius: 3
     }
 });

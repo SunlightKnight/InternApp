@@ -31,6 +31,7 @@ function Login(props: LoginProps) {
     const [biometricSetUpFlag, setBiometricSetUpFlag] = useState(false)
     const [biometricType, setBiometricType] = useState<any>(undefined)
     const [registeredUsers, setRegisteredUsers] = useState(Array<User>)
+    const [registeringUser, setRegisteringUser] = useState<User>()
     const [APIUsers, setAPIUsers] = useState(Array<User>)
 
     const knownUsers: User[] = [
@@ -55,7 +56,7 @@ function Login(props: LoginProps) {
 
     const prevUserHandle = async () => {
         const jsonValue = await AsyncStorage.getItem('login');
-        const user : User = JSON.parse(jsonValue as string)
+        const user: User = JSON.parse(jsonValue as string)
         jsonValue != null ? appContext?.app.setUser(user) : null
 
         if (user.biometricEnabled) {
@@ -72,13 +73,13 @@ function Login(props: LoginProps) {
 
     const getAPIUsers = () => {
         backendContext?.beService.getUsers()
-        .then((result) => {
-            console.log(result)
-            setAPIUsers(result)
-        })
-        .catch((result) => {
+            .then((result) => {
+                console.log(result)
+                setAPIUsers(result)
+            })
+            .catch((result) => {
 
-        })
+            })
     }
 
     const getRegisteredUsers = async () => {
@@ -115,20 +116,36 @@ function Login(props: LoginProps) {
             password: password,
         }
 
-        var tempArray: User[] = registeredUsers.slice()
-        tempArray.push(newUser)
-        setRegisteredUsers(tempArray)
+        const userBiometricsEnabled = biometricType == BiometryTypes.Biometrics || biometricType == BiometryTypes.TouchID
 
-        biometricType == BiometryTypes.Biometrics || biometricType == BiometryTypes.TouchID ? setBiometricSetUpFlag(true) : null
+        if (userBiometricsEnabled) {
+            setRegisteringUser(newUser)
+            setBiometricSetUpFlag(true)
+        } else {
+            finishUserRegistration(newUser)
+        }
+    }
 
-        console.log(JSON.stringify(registeredUsers) + "\n" + JSON.stringify(newUser))
+    const finishUserRegistration = (user?: User) => {
+        if (!user) {
+            return
+        }
 
-        try {
-            const jsonUser = JSON.stringify(newUser)
-            const jsonRegisteredUsers = JSON.stringify(tempArray)
-            await AsyncStorage.setItem('login', jsonUser)
-            await AsyncStorage.setItem('registeredUsers', jsonRegisteredUsers)
-        } catch (e) { }
+        backendContext?.beService.registerUser(user)
+            .then((result) => {
+                console.log(result)
+                backendContext?.beService.getUsers()
+                    .then((result) => {
+                        console.log(result)
+                        setAPIUsers(result)
+                    })
+                    .catch((result) => {
+
+                    })
+            })
+            .catch((result) => {
+                finishUserRegistration(user)
+            })
     }
 
     const savePrevUser = async (value: any) => {
@@ -141,7 +158,7 @@ function Login(props: LoginProps) {
     }
 
     const loginMove = () => {
-        props.navigation.navigate('Main', {screen: 'Landing'})
+        props.navigation.navigate('Main', { screen: 'Landing' })
     }
 
     const findBiometricType = async () => {
@@ -149,7 +166,7 @@ function Login(props: LoginProps) {
         setBiometricType(biometryType as BiometryType)
     }
 
-    const biometricSetUp = async (successFunction: () => void) => {
+    const biometricSetUp = async () => {
         await rnBiometrics.simplePrompt({ promptMessage: 'Confirm fingerprint' })
             .then((resultObject) => {
                 const { success } = resultObject
@@ -157,16 +174,15 @@ function Login(props: LoginProps) {
                 if (success) {
                     console.log('successful biometrics provided')
 
-                    var tempArray: User[] = registeredUsers.slice()
-                    const entry = registeredUsers.find(item => item.userName == username)
-                    if (!entry) {
-                        return
-                    }
-                    entry.biometricEnabled = true
-                    setRegisteredUsers(tempArray)
-                    const jsonRegisteredUsers = JSON.stringify(tempArray)
-                    AsyncStorage.setItem('registeredUsers', jsonRegisteredUsers)
-                    successFunction()
+                    const shallowUser = Object.assign({}, registeringUser)
+                    shallowUser.biometricEnabled = true
+
+                    finishUserRegistration(shallowUser)
+                    setRegisteringUser(undefined)
+
+                    setBiometricSetUpFlag(false)
+                    
+                    setSignIn(false)
                 } else {
                     console.log('user cancelled biometric prompt')
                 }
@@ -217,7 +233,7 @@ function Login(props: LoginProps) {
             registeredUsers != null ? entry = registeredUsers.find(item => item.userName == username) : null
             if (entry == undefined) {
                 APIUsers != null ? entry = APIUsers.find(item => item.userName == username) : null
-                if(entry == undefined) {
+                if (entry == undefined) {
                     setWarning(true)
                     setPassword('')
                     return
@@ -256,8 +272,8 @@ function Login(props: LoginProps) {
                 {signIn ? biometricSetUpFlag ? (
                     <View style={styles.loginContainer}>
                         <Text style={styles.title}>{t("login_screen.biometric_setup_title")}</Text>
-                        <CustomButton text={t('login_screen.biometric_setup')} onPress={() => biometricSetUp(login)} />
-                        <TouchableOpacity onPress={() => (setSignIn(false), setWarning(false), setBiometricSetUpFlag(false), login())}>
+                        <CustomButton text={t('login_screen.biometric_setup')} onPress={() => biometricSetUp()} />
+                        <TouchableOpacity onPress={() => (finishUserRegistration(registeringUser), setRegisteringUser(undefined), setSignIn(false), setWarning(false), setBiometricSetUpFlag(false), login())}>
                             <Text style={styles.signLogInPrompt}>{t('login_screen.biometric_setup_cancel')}</Text>
                         </TouchableOpacity>
                     </View>
@@ -265,7 +281,7 @@ function Login(props: LoginProps) {
                     <View style={styles.loginContainer}>
                         <Text style={styles.title}>{t("login_screen.signin_title")}</Text>
                         <LabeledField warningText={warning ? t('login_screen.signin_existing_username') : undefined} placeholder={t('login_screen.login_insert_username')} onChangeText={setUsername} value={username} />
-                        <LabeledField placeholder={t('login_screen.login_insert_password')} onChangeText={setPassword} value={password} newPassword={true}/>
+                        <LabeledField placeholder={t('login_screen.login_insert_password')} onChangeText={setPassword} value={password} newPassword={true} />
                         <CustomButton text={t('login_screen.signin')} onPress={() => (registerUser())} />
                         <TouchableOpacity onPress={() => (setSignIn(false), setWarning(false))}>
                             <Text style={styles.signLogInPrompt}>{t('login_screen.login_prompt')}</Text>
