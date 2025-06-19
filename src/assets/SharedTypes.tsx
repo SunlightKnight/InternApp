@@ -67,20 +67,20 @@ export type BookEntry = {
 }
 
 export type Author = {
-    id: number,
-    idBook: number,
+    id: string,
+    idBook: string,
     firstName: string,
     lastName: string
 }
 
 export type CoverPhoto = {
-    id: number,
-    idBook: number,
+    id: string,
+    idBook: string,
     url: string,
 }
 
 export type Activity = {
-    id: 0,
+    id: string,
     title: string,
     dueDate: string,
     completed: boolean

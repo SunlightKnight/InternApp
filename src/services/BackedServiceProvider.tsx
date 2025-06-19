@@ -266,7 +266,7 @@ const BackendServiceProvider = ({ children }: any) => {
 
   const getBooks = (): Promise<BookEntry[]> => {
     return callJSON(
-      API_BASE_URL + `/api/v1/Books`,
+      API_BASE_URL + `/books`,
       HTTPMethod.GET,
       undefined,
       HTTPContentType.json
@@ -274,7 +274,7 @@ const BackendServiceProvider = ({ children }: any) => {
   }
   const getAuthors = (): Promise<Author[]> => {
     return callJSON(
-      API_BASE_URL + `/api/v1/Authors`,
+      API_BASE_URL + `/authors`,
       HTTPMethod.GET,
       undefined,
       HTTPContentType.json
@@ -282,7 +282,7 @@ const BackendServiceProvider = ({ children }: any) => {
   }
   const getImages = (): Promise<CoverPhoto[]> => {
     return callJSON(
-      API_BASE_URL + `/api/v1/CoverPhotos`,
+      API_BASE_URL + `/coverPhotos`,
       HTTPMethod.GET,
       undefined,
       HTTPContentType.json
@@ -290,7 +290,7 @@ const BackendServiceProvider = ({ children }: any) => {
   }
   const getActivities = (): Promise<Activity[]> => {
     return callJSON(
-      API_BASE_URL + `/api/v1/Activities`,
+      API_BASE_URL + `/activities`,
       HTTPMethod.GET,
       undefined,
       HTTPContentType.json

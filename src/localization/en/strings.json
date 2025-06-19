@@ -59,9 +59,9 @@
     "add_sell": "Put on sale"
   },
   "pets_cart_screen": {
-    "buy": "Procedi al pagamento",
-    "cancel_payment": "Annulla pagamento",
-    "confirm_payment": "Conferma pagamento"
+    "buy": "Continue payment",
+    "cancel_payment": "Cancel payment",
+    "confirm_payment": "Confirm payment"
   },
   "pets_history_screen": {
     "pets_delivery_date": "Will arrive by"

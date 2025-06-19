@@ -20,6 +20,8 @@ export default function BooksListEntry(props: BooksListEntryProps) {
     const [showDetails, setShowDetails] = useState(false)
 
     const concatenateAuthors = () => {
+        if(!props.authors[0]) {return}
+
         var result = (props.authors[0].firstName + " " + props.authors[0].lastName)
         for (let i = 1; i < props.authors.length; i++) {
             result += (", " + props.authors[i].firstName + " " + props.authors[i].lastName)
